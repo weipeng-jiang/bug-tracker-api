@@ -12,8 +12,8 @@
     "nodemon": "^2.0.2"
   },
   "scripts": {
-    "start": "node test",
-    "dev": "nodemon src/App"
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
   },
   "keywords": [],
   "author": "",
