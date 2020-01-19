@@ -9,12 +9,13 @@ class Status {
   }
 
   static retrieveByStatus_Id(status_id, callback) {
-    db.query("SELECT * FROM status WHERE status_id=$1"),
-      [status_id],
+    db.query(
+      `SELECT * FROM status WHERE status_id = B'${status_id}'`,
       (err, res) => {
         if (err.error) return callback(err);
         callback(res);
-      };
+      }
+    );
   }
 }
 
