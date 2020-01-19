@@ -1,5 +1,5 @@
 const express = require("express");
-const Roles = require("../models/roles");
+const Roles = require("../models/Roles");
 
 const router = express.Router();
 

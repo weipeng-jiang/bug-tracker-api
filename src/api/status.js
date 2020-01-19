@@ -1,5 +1,5 @@
 const express = require("express");
-const Status = require("../models/status");
+const Status = require("../models/Status");
 
 const router = express.Router();
 
@@ -10,7 +10,7 @@ router.get("/", (req, res) => {
   });
 });
 
-router.get("/:status_id", (req, res) => {
+router.get("/status_id=:status_id", (req, res) => {
   const status_id = req.params.status_id;
 
   Status.retrieveByStatus_Id(status_id, (err, result) => {
