@@ -1,16 +1,16 @@
 const db = require("../database/Index");
 
-class Status {
+class Projects {
   static retrieveAll(callback) {
-    db.query("SELECT * FROM status", (err, res) => {
+    db.query("SELECT * from projects", (err, res) => {
       if (err.error) return callback(err);
       callback(res);
     });
   }
 
-  static retrieveByStatus_Id(status_id, callback) {
+  static retrieveByProject_Id(project_id, callback) {
     db.query(
-      `SELECT * FROM status WHERE status_id = B'${status_id}'`,
+      `SELECT * FROM projects WHERE project_id=${project_id}`,
       (err, res) => {
         if (err.error) return callback(err);
         callback(res);
@@ -19,4 +19,4 @@ class Status {
   }
 }
 
-module.exports = Status;
+module.exports = Projects;
