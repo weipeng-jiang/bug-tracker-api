@@ -1,4 +1,4 @@
-const db = require("../database/Index");
+const db = require("../index");
 
 class Priority {
   static retrieveAll(callback) {
