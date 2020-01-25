@@ -1,0 +1,14 @@
+GET http://localhost:3000/api/status
+
+###
+
+GET http://localhost:3000/api/roles/
+
+###
+POST http://localhost:3000/api/roles/
+Content-Type: application/json
+
+{
+  "role_id":"5",
+  "role_title":"Dev"
+}

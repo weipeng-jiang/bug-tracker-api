@@ -1,5 +1,5 @@
 const express = require("express");
-const Priority = require("../models/Priority");
+const Priority = require("../database/models/priority");
 
 const router = express.Router();
 

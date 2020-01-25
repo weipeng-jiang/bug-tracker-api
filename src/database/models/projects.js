@@ -1,4 +1,4 @@
-const db = require("../database/Index");
+const db = require("../index");
 
 class Projects {
   static retrieveAll(callback) {
