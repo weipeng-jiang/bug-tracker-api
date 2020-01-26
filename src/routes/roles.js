@@ -16,7 +16,6 @@ router.get("/:role_id", async (req, res) => {
   const role_id = req.params.role_id;
   try {
     const result = await roles.retrieveById(role_id);
-
     if (!result) {
       return res.status(404).sendStatus(404);
     }
@@ -30,8 +29,8 @@ router.post("/", async (req, res) => {
   const { role_id, role_title } = req.body;
 
   try {
-    const result = await roles.createNewRole(role_id, role_title);
-    res.status(201).json(result);
+    await roles.createNewRole(role_id, role_title);
+    res.status(201).sendStatus(201);
   } catch (err) {
     res.status(400).sendStatus(400);
   }
@@ -51,12 +50,15 @@ router.patch("/:role_id", async (req, res) => {
 
 router.delete("/:role_id", async (req, res) => {
   const role_id = req.params.role_id;
-
   try {
-    const result = await roles.deleteRole(role_id);
-    res.status(200).sendStatus(result);
+    const result = await roles.retrieveById(role_id);
+    if (!result) {
+      return res.status(404).json({ message: "Role ID not found" });
+    }
+    await roles.deleteRole(role_id);
+    res.status(200).sendStatus(200);
   } catch (err) {
-    return res.status(404).json({ message: "Role ID not found" });
+    res.status(400).sendStatus(400);
   }
 });
 
@@ -69,7 +71,7 @@ async function roleId(req, res, next) {
       return res.status(404).sendStatus(404);
     }
   } catch (err) {
-    return res.status(500).sendStatus(500);
+    res.status(500).sendStatus(500);
   }
 
   res.role = role;

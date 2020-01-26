@@ -4,9 +4,9 @@ let roles = {};
 
 roles.retrieveAll = () => {
   return new Promise((resolve, reject) => {
-    db.query("SELECT * FROM roles", (err, results) => {
+    db.query("SELECT * FROM roles", (err, result) => {
       if (err.error) return reject(err);
-      resolve(results);
+      resolve(result);
     });
   });
 };
@@ -16,9 +16,9 @@ roles.retrieveById = role_id => {
     db.query(
       `SELECT * FROM roles WHERE role_id=$1`,
       [role_id],
-      (err, results) => {
+      (err, result) => {
         if (err.error) return reject(err);
-        resolve(results[0]);
+        resolve(result[0]);
       }
     );
   });
@@ -29,9 +29,9 @@ roles.createNewRole = (role_id, role_title) => {
     db.query(
       `INSERT INTO roles VALUES ($1, $2)`,
       [role_id, role_title],
-      (err, results) => {
+      (err, result) => {
         if (err.error) return reject(err);
-        resolve(results);
+        resolve(result);
       }
     );
   });
@@ -42,9 +42,9 @@ roles.updateRole = (role_title, role_id) => {
     db.query(
       `UPDATE roles SET role_title = $1 WHERE role_id = $2`,
       [role_title, role_id],
-      (err, results) => {
+      (err, result) => {
         if (err.error) return reject(err);
-        resolve(results);
+        resolve(result);
       }
     );
   });
@@ -52,14 +52,10 @@ roles.updateRole = (role_title, role_id) => {
 
 roles.deleteRole = role_id => {
   return new Promise((resolve, reject) => {
-    db.query(
-      `DELETE FROM roles WHERE role_id=$1`,
-      [role_id],
-      (err, results) => {
-        if (err.error) return reject(err);
-        resolve(results);
-      }
-    );
+    db.query(`DELETE FROM roles WHERE role_id=$1`, [role_id], (err, result) => {
+      if (err.error) return reject(err);
+      resolve(result[0]);
+    });
   });
 };
 module.exports = roles;

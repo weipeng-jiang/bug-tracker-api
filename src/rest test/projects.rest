@@ -1,0 +1,18 @@
+GET http://localhost:3000/api/projects
+
+###
+GET http://localhost:3000/api/projects/3
+
+###
+POST http://localhost:3000/api/projects/
+Content-Type: application/json
+
+{
+  "project_name":"hello",
+  "description":"hello world",
+  "date_created":"2004-10-19T08:23:54.000Z"
+}
+
+
+###
+DELETE http://localhost:3000/api/projects/4

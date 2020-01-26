@@ -1,32 +1,27 @@
 const db = require("../index");
 
-class Priority {
-  static retrieveAll(callback) {
-    db.query("SELECT * FROM priority", (err, res) => {
-      if (err.error) return callback(err);
-      callback(res);
+let priority = {};
+
+priority.retrieveAll = () => {
+  return new Promise((resolve, reject) => {
+    db.query("SELECT * FROM priority", (err, result) => {
+      if (err.error) return reject(err);
+      resolve(result);
     });
-  }
+  });
+};
 
-  static retrieveByPriority_Id(priority_id, callback) {
+priority.retrieveById = priority_id => {
+  return new Promise((resolve, reject) => {
     db.query(
-      `SELECT * FROM priority WHERE priority_id=B'${priority_id}'`,
-      (err, res) => {
-        if (err.error) return callback(err);
-        callback(res);
+      `SELECT * FROM priority WHERE priority_id=$1`,
+      [priority_id],
+      (err, result) => {
+        if (err.error) return reject(err);
+        resolve(result[0]);
       }
     );
-  }
+  });
+};
 
-  static retrieveByPriority_type(priority_type, callback) {
-    db.query(
-      `SELECT * FROM priority WHERE priority_type='${priority_type}'`,
-      (err, res) => {
-        if (err.error) return callback(err);
-        callback(res);
-      }
-    );
-  }
-}
-
-module.exports = Priority;
+module.exports = priority;

@@ -1,31 +1,28 @@
 const express = require("express");
-const Priority = require("../database/models/priority");
+const priority = require("../database/models/priority");
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  Priority.retrieveAll((err, priority) => {
-    if (err) return res.json(err);
-    return res.json(priority);
-  });
+router.get("/", async (req, res) => {
+  try {
+    const result = await priority.retrieveAll();
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(400).sendStatus(400);
+  }
 });
 
-router.get("/priority_id=:priority_id", (req, res) => {
+router.get("/:priority_id", async (req, res) => {
   const priority_id = req.params.priority_id;
-
-  Priority.retrieveByPriority_Id(priority_id, (err, result) => {
-    if (err) return res.json(err);
-    return res.json(result);
-  });
-});
-
-router.get("/priority_type=:priority_type", (req, res) => {
-  const priority_type = req.params.priority_type;
-
-  Priority.retrieveByPriority_type(priority_type, (err, result) => {
-    if (err) return res.json(err);
-    return res.json(result);
-  });
+  try {
+    const result = await priority.retrieveById(priority_id);
+    if (!result) {
+      return res.status(404).sendStatus(404);
+    }
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(400).sendStatus(400);
+  }
 });
 
 module.exports = router;

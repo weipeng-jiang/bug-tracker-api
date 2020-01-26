@@ -36,7 +36,7 @@ CREATE TABLE projects
     project_name VARCHAR(30) NOT NULL,
     description VARCHAR(3000),
     date_created TIMESTAMPTZ NOT NULL,
-    user_id SERIAL REFERENCES users (user_id),--I am dropping this, this is not in the ERD
+    user_id SERIAL REFERENCES users (user_id),--I am dropping this, this is not in the ERD and added project_lead as FK
     UNIQUE(project_id)
 );
 
