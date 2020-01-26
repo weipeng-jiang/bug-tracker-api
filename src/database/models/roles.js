@@ -37,4 +37,29 @@ roles.createNewRole = (role_id, role_title) => {
   });
 };
 
+roles.updateRole = (role_title, role_id) => {
+  return new Promise((resolve, reject) => {
+    db.query(
+      `UPDATE roles SET role_title = $1 WHERE role_id = $2`,
+      [role_title, role_id],
+      (err, results) => {
+        if (err.error) return reject(err);
+        resolve(results);
+      }
+    );
+  });
+};
+
+roles.deleteRole = role_id => {
+  return new Promise((resolve, reject) => {
+    db.query(
+      `DELETE FROM roles WHERE role_id=$1`,
+      [role_id],
+      (err, results) => {
+        if (err.error) return reject(err);
+        resolve(results);
+      }
+    );
+  });
+};
 module.exports = roles;
