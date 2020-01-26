@@ -1,0 +1,32 @@
+GET http://localhost:3000/api/issues
+
+###
+GET http://localhost:3000/api/issues/2
+
+###
+POST http://localhost:3000/api/issues/
+Content-Type: application/json
+
+{
+  "project_id":"6",
+  "priority_id":"00",
+  "user_id":"12",
+  "status_id":"1",
+  "title":"",
+  "description":"data security breach",
+  "report_date":"2004-10-19T08:23:54.000Z"
+}
+
+###
+PATCH http://localhost:3000/api/issues/15
+Content-Type: application/json
+
+{
+  "priority_id":"00",
+  "status_id":"1",
+  "title":"",
+  "description":"data security breach"
+}
+
+###
+DELETE http://localhost:3000/api/issues/20

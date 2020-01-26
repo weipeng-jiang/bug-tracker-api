@@ -1,7 +1,7 @@
 GET http://localhost:3000/api/roles
 
 ###
-GET http://localhost:3000/api/roles/4
+GET http://localhost:3000/api/roles/5
 
 ###
 POST http://localhost:3000/api/roles/
@@ -13,12 +13,12 @@ Content-Type: application/json
 }
 
 ###
-PATCH http://localhost:3000/api/roles/2
+PATCH http://localhost:3000/api/roles/4
 Content-Type: application/json
 
 {
-  "role_title":"backend dev"
+  "role_title":"back"
 }
 
 ###
-DELETE http://localhost:3000/api/roles/1
+DELETE http://localhost:3000/api/roles/2
