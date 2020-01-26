@@ -41,8 +41,12 @@ router.patch("/:role_id", async (req, res) => {
   const role_title = req.body.role_title;
 
   try {
-    const result = await roles.updateRole(role_title, role_id);
-    res.status(200).json(result);
+    const result = await roles.retrieveById(role_id);
+    if (!result) {
+      return res.status(404).json({ message: "Role ID not found" });
+    }
+    await roles.updateRole(role_title, role_id);
+    res.status(200).sendStatus(200);
   } catch (err) {
     res.status(400).sendStatus(400);
   }
