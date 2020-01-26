@@ -17,9 +17,9 @@ router.get("/:issue_id", async (req, res) => {
   try {
     const result = await issue.retrieveById(issue_id);
     if (!result) {
-      return res.status(404).sendStatus(404);
+      return res.status(404).json({ message: "Issue ID is not found" });
     }
-    res.status(200).json({ message: "Issue ID is not found" });
+    res.status(200).json(result);
   } catch (err) {
     res.status(400).sendStatus(400);
   }
