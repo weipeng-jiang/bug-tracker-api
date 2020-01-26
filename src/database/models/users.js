@@ -16,6 +16,7 @@ user.retrieveById = user_id => {
     db.query(
       "SELECT * FROM users WHERE user_id=$1",
       [user_id],
+      (err, result) => {
         if (err.error) return reject(err);
         resolve(result[0]);
       }
