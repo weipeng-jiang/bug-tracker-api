@@ -3,52 +3,77 @@ const roles = require("../database/models/roles");
 
 const router = express.Router();
 
-router.get("/", async (req, res, next) => {
+router.get("/", async (req, res) => {
   try {
-    const results = await roles.retrieveAll();
-    res.status(200).json(results);
+    const result = await roles.retrieveAll();
+    res.status(200).json(result);
   } catch (err) {
     res.status(400).sendStatus(400);
   }
 });
 
-router.get("/:role_id", async (req, res, next) => {
+router.get("/:role_id", async (req, res) => {
   const role_id = req.params.role_id;
   try {
-    const results = await roles.retrieveById(role_id);
+    const result = await roles.retrieveById(role_id);
 
-    if (!results) {
+    if (!result) {
       return res.status(404).sendStatus(404);
     }
-    res.status(200).json(results);
+    res.status(200).json(result);
   } catch (err) {
     res.status(400).sendStatus(400);
   }
 });
 
-router.post("/", async (req, res, next) => {
-  const role_id = req.body.role_id;
-  const role_title = reg.body.role_title;
+router.post("/", async (req, res) => {
+  const { role_id, role_title } = req.body;
 
   try {
-    const results = await roles.createNewRole(role_id, role_title);
-    res
-      .send(results)
-      .status(201)
-      .json(results);
+    const result = await roles.createNewRole(role_id, role_title);
+    res.status(201).json(result);
   } catch (err) {
     res.status(400).sendStatus(400);
   }
 });
 
-// router.post("/", (req, res) => {
-//   const role_id = req.body.role_id;
-//   const role_title = req.body.role_title;
+router.patch("/:role_id", async (req, res) => {
+  const role_id = req.params.role_id;
+  const role_title = req.body.role_title;
 
-//   Roles.insert(role_id, role_title, (err, result) => {
-//     if (err) return res.json(err);
-//     return res.json(result);
-//   });
-// });
+  try {
+    const result = await roles.updateRole(role_title, role_id);
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(400).sendStatus(400);
+  }
+});
+
+router.delete("/:role_id", async (req, res) => {
+  const role_id = req.params.role_id;
+
+  try {
+    const result = await roles.deleteRole(role_id);
+    res.status(200).sendStatus(result);
+  } catch (err) {
+    return res.status(404).json({ message: "Role ID not found" });
+  }
+});
+
+// TODO: apply middle ware
+async function roleId(req, res, next) {
+  let role;
+  try {
+    role = await roles.findById(req.params.role_id);
+    if (role == null) {
+      return res.status(404).sendStatus(404);
+    }
+  } catch (err) {
+    return res.status(500).sendStatus(500);
+  }
+
+  res.role = role;
+  next();
+}
 
 module.exports = router;
