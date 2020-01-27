@@ -1,0 +1,26 @@
+GET http://localhost:3000/api/comments
+
+###
+GET http://localhost:3000/api/comments/1
+
+###
+POST http://localhost:3000/api/comments/
+Content-Type: application/json
+
+{
+  "issue_id":"19",
+  "user_id":"5",
+  "description":"Good issue",
+  "comment_date":"2020-10-19T08:23:54.000Z"
+}
+
+###
+PATCH http://localhost:3000/api/comments/1
+Content-Type: application/json
+
+{
+  "description":"updated comment"
+}
+
+###
+DELETE http://localhost:3000/api/comments/4
