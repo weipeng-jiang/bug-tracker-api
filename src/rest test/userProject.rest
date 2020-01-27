@@ -1,0 +1,25 @@
+GET http://localhost:3000/api/userProjects
+
+###
+GET http://localhost:3000/api/userProjects/user/12
+
+###
+GET http://localhost:3000/api/userProjects/project/6
+
+###
+GET http://localhost:3000/api/userProjects/5/6
+
+###
+POST http://localhost:3000/api/userProjects/
+Content-Type: application/json
+
+{
+  "user_id":"12",
+  "project_id":"8"
+}
+
+###
+PATCH http://localhost:3000/api/userProjects/12/8
+Content-Type: application/json
+
+{}

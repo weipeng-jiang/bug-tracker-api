@@ -19,6 +19,7 @@ app.use("/api/projects", require("./routes/projects"));
 app.use("/api/users", require("./routes/users"));
 app.use("/api/issues", require("./routes/issues"));
 app.use("/api/comments", require("./routes/comments"));
+app.use("/api/userProjects", require("./routes/userProjects"));
 
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}`);
