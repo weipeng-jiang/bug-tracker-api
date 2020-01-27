@@ -4,7 +4,7 @@ let comment = {};
 
 comment.retrieveAll = () => {
   return new Promise((resolve, reject) => {
-    db.query("Select * FROM comments", (err, result) => {
+    db.query("SELECT * FROM comments", (err, result) => {
       if (err.error) return reject(err);
       resolve(result);
     });
