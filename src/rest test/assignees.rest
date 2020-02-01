@@ -1,0 +1,19 @@
+GET http://localhost:3000/api/assignees
+
+###
+GET http://localhost:3000/api/assignees/user/12
+
+###
+GET http://localhost:3000/api/assignees/issue/1
+
+###
+GET http://localhost:3000/api/assignees/12/2
+
+###
+POST http://localhost:3000/api/assignees/
+Content-Type: application/json
+
+{
+  "user_id":"5",
+  "issue_id":"1"
+}
