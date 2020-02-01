@@ -1,5 +1,6 @@
 const express = require("express");
 const user = require("../database/models/users");
+const bcrypt = require("bcrypt");
 
 const router = express.Router();
 
@@ -12,7 +13,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:user_id", async (req, res) => {
+router.get("/user_id/:user_id", async (req, res) => {
   const user_id = req.params.user_id;
   try {
     const result = await user.retrieveById(user_id);
@@ -26,14 +27,9 @@ router.get("/:user_id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const {
-    role_id,
-    user_fName,
-    user_lName,
-    email,
-    password,
-    last_login
-  } = req.body;
+  const { role_id, user_fName, user_lName, email, last_login } = req.body;
+
+  const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
   try {
     await user.createNewUser(
@@ -41,12 +37,32 @@ router.post("/", async (req, res) => {
       user_fName,
       user_lName,
       email,
-      password,
+      hashedPassword,
       last_login
     );
     res.status(201).sendStatus(201);
   } catch (err) {
     res.status(400).sendStatus(400);
+  }
+});
+
+router.post("/login", async (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+
+  const userLogin = await user.retrieveEmailAndPassword(email);
+
+  if (!userLogin) {
+    return res.status(404).sendStatus(404);
+  }
+  try {
+    if (await bcrypt.compare(password, userLogin.password)) {
+      res.status(200).json(userLogin);
+    } else {
+      res.status(400).send("not allowed");
+    }
+  } catch {
+    res.status(500).sendStatus(500);
   }
 });
 
