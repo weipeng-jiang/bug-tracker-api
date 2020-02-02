@@ -19,7 +19,7 @@ PATCH http://localhost:3000/api/comments/1
 Content-Type: application/json
 
 {
-  "description":"updated comment"
+  "description":"updfgfg"
 }
 
 ###

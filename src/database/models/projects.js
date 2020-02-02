@@ -37,7 +37,7 @@ project.createNewProject = (project_name, description, date_created) => {
   });
 };
 
-//TODO update
+//TODO: PATCH endpoint
 
 project.deleteProject = project_id => {
   return new Promise((resolve, reject) => {
@@ -53,5 +53,3 @@ project.deleteProject = project_id => {
 };
 
 module.exports = project;
-
-// INSERT INTO projects (project_name, description, date_created) VALUES ('sun', 'Chasing the sun', '2004-10-19 08:23:54 +0000');

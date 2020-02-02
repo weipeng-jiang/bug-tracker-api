@@ -25,6 +25,7 @@ router.get("/:comment_id", async (req, res) => {
   }
 });
 
+// TODO: change comment_date to current time/date, instead of user input
 router.post("/", async (req, res) => {
   const { issue_id, user_id, description, comment_date } = req.body;
 
@@ -41,6 +42,7 @@ router.post("/", async (req, res) => {
   }
 });
 
+// TODO: when update, return JSON
 router.patch("/:comment_id", async (req, res) => {
   const { description } = req.body;
   const comment_id = req.params.comment_id;
@@ -55,7 +57,7 @@ router.patch("/:comment_id", async (req, res) => {
       new Date().toUTCString(),
       comment_id
     );
-    res.status(200).sendStatus(200);
+    res.status(200).json(result);
   } catch (err) {
     res.status(400).sendStatus(400);
   }

@@ -50,7 +50,7 @@ userProject.retrieveByUserAndProjectId = (user_id, project_id) => {
   });
 };
 
-userProject.insert = (user_id, project_id, user_assign_date) => {
+userProject.assignUserToProject = (user_id, project_id, user_assign_date) => {
   return new Promise((resolve, reject) => {
     db.query(
       `INSERT INTO user_projects (user_id, project_id, user_assign_date) VALUES ($1, $2, $3)`,

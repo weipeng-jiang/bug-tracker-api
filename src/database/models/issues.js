@@ -24,6 +24,8 @@ issue.retrieveById = issue_id => {
   });
 };
 
+// TODO: GET endpoint retrieveIssuesByProject_Id
+
 issue.createNewIssue = (
   project_id,
   priority_id,
@@ -53,6 +55,7 @@ issue.createNewIssue = (
   });
 };
 
+// TODO: bug, fix patch endpoint to update selected fields
 issue.updateIssue = (priority_id, status_id, title, description, issue_id) => {
   return new Promise((resolve, reject) => {
     db.query(
@@ -78,8 +81,5 @@ issue.deleteIssue = issue_id => {
     );
   });
 };
-
-// INSERT INTO issues(project_id, priority_id, user_id, status_id, title, description, report_date)
-// VALUES (6, '11', 12, '1', 'security breach', 'data security breach', '2004-10-19T08:23:54.000Z');
 
 module.exports = issue;

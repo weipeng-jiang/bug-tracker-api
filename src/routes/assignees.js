@@ -58,7 +58,7 @@ router.post("/", async (req, res) => {
   const { user_id, issue_id } = req.body;
 
   try {
-    await assignee.insert(user_id, issue_id);
+    await assignee.assignUserToIssue(user_id, issue_id);
     res.status(201).sendStatus(201);
   } catch (err) {
     res.status(400).sendStatus(400);
