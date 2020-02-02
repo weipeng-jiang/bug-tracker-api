@@ -1,8 +1,8 @@
 const db = require("../index");
 
-let issue = {};
+let issues = {};
 
-issue.retrieveAll = () => {
+issues.retrieveAll = () => {
   return new Promise((resolve, reject) => {
     db.query("SELECT * FROM issues", (err, result) => {
       if (err.error) return reject(err);
@@ -11,7 +11,7 @@ issue.retrieveAll = () => {
   });
 };
 
-issue.retrieveById = issue_id => {
+issues.retrieveById = issue_id => {
   return new Promise((resolve, reject) => {
     db.query(
       "SELECT * FROM issues WHERE issue_id=$1",
@@ -25,8 +25,20 @@ issue.retrieveById = issue_id => {
 };
 
 // TODO: GET endpoint retrieveIssuesByProject_Id
+issues.retrieveIssuesByProjectId = project_id => {
+  return new Promise((resolve, reject) => {
+    db.query(
+      "SELECT * FROM issues WHERE project_id=$1",
+      [project_id],
+      (err, result) => {
+        if (err.error) return reject(err);
+        resolve(result);
+      }
+    );
+  });
+};
 
-issue.createNewIssue = (
+issues.createNewIssue = (
   project_id,
   priority_id,
   user_id,
@@ -56,7 +68,7 @@ issue.createNewIssue = (
 };
 
 // TODO: bug, fix patch endpoint to update selected fields
-issue.updateIssue = (priority_id, status_id, title, description, issue_id) => {
+issues.updateIssue = (priority_id, status_id, title, description, issue_id) => {
   return new Promise((resolve, reject) => {
     db.query(
       `UPDATE issues SET priority_id=$1, status_id=$2, title=$3, description=$4 WHERE issue_id=$5`,
@@ -69,7 +81,7 @@ issue.updateIssue = (priority_id, status_id, title, description, issue_id) => {
   });
 };
 
-issue.deleteIssue = issue_id => {
+issues.deleteIssue = issue_id => {
   return new Promise((resolve, reject) => {
     db.query(
       `DELETE FROM issues WHERE issue_id=$1`,
@@ -82,4 +94,4 @@ issue.deleteIssue = issue_id => {
   });
 };
 
-module.exports = issue;
+module.exports = issues;

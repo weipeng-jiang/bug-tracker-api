@@ -73,7 +73,7 @@ router.delete("/:user_id/:issue_id", async (req, res) => {
     if (!result) {
       return res.status(404).json({ message: "Assignee is not found" });
     }
-    await assignees.removeUserFromIssu(user_id, issue_id);
+    await assignees.removeUserFromIssue(user_id, issue_id);
     res.status(200).sendStatus(200);
   } catch (err) {
     res.status(400).sendStatus(400);
