@@ -44,6 +44,32 @@ user.createNewUser = (
   });
 };
 
+user.retrieveEmailAndPassword = email => {
+  return new Promise((resolve, reject) => {
+    db.query(
+      `SELECT email, password FROM users WHERE email=$1`,
+      [email],
+      (err, result) => {
+        if (err.error) return reject(err);
+        resolve(result[0]);
+      }
+    );
+  });
+};
+
+user.userLogin = (email, password) => {
+  return new Promise((resolve, reject) => {
+    db.query(
+      `SELECT * FROM users WHERE email=$1 AND password=$2`,
+      [email, password],
+      (err, result) => {
+        if (err.error) return reject(err);
+        resolve(result);
+      }
+    );
+  });
+};
+
 user.updateUser = (
   role_id,
   user_fName,
