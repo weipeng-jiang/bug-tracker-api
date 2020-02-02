@@ -1,8 +1,8 @@
 const db = require("../");
 
-let comment = {};
+let comments = {};
 
-comment.retrieveAll = () => {
+comments.retrieveAll = () => {
   return new Promise((resolve, reject) => {
     db.query("SELECT * FROM comments", (err, result) => {
       if (err.error) return reject(err);
@@ -11,7 +11,7 @@ comment.retrieveAll = () => {
   });
 };
 
-comment.retrieveById = comment_id => {
+comments.retrieveByCommentId = comment_id => {
   return new Promise((resolve, reject) => {
     db.query(
       "SELECT * FROM comments WHERE comment_id=$1",
@@ -25,8 +25,20 @@ comment.retrieveById = comment_id => {
 };
 
 // TODO: GET endpoint, retrieve comment/s by issue id
+comments.retrieveCommentsByIssueId = issue_id => {
+  return new Promise((resolve, reject) => {
+    db.query(
+      "SELECT * FROM comments WHERE issue_id=$1",
+      [issue_id],
+      (err, result) => {
+        if (err.error) return reject(err);
+        resolve(result);
+      }
+    );
+  });
+};
 
-comment.createNewComment = (issue_id, user_id, description, comment_date) => {
+comments.createNewComment = (issue_id, user_id, description, comment_date) => {
   return new Promise((resolve, reject) => {
     db.query(
       `INSERT INTO comments (issue_id, user_id, description, comment_date) VALUES ($1, $2, $3, $4)`,
@@ -39,7 +51,7 @@ comment.createNewComment = (issue_id, user_id, description, comment_date) => {
   });
 };
 
-comment.updateComment = (description, edit_date, comment_id) => {
+comments.updateComment = (description, edit_date, comment_id) => {
   return new Promise((resolve, reject) => {
     db.query(
       `UPDATE comments SET description=$1, edit_date=$2 WHERE comment_id=$3`,
@@ -52,7 +64,7 @@ comment.updateComment = (description, edit_date, comment_id) => {
   });
 };
 
-comment.deleteComment = comment_id => {
+comments.deleteComment = comment_id => {
   return new Promise((resolve, reject) => {
     db.query(
       `DELETE FROM comments WHERE comment_id=$1`,
@@ -65,4 +77,4 @@ comment.deleteComment = comment_id => {
   });
 };
 
-module.exports = comment;
+module.exports = comments;
