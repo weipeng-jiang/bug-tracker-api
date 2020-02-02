@@ -24,6 +24,8 @@ comment.retrieveById = comment_id => {
   });
 };
 
+// TODO: GET endpoint, retrieve comment/s by issue id
+
 comment.createNewComment = (issue_id, user_id, description, comment_date) => {
   return new Promise((resolve, reject) => {
     db.query(

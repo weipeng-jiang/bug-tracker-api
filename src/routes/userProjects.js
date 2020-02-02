@@ -63,7 +63,11 @@ router.post("/", async (req, res) => {
   const { user_id, project_id } = req.body;
 
   try {
-    await userProject.insert(user_id, project_id, new Date().toUTCString());
+    await userProject.assignUserToProject(
+      user_id,
+      project_id,
+      new Date().toUTCString()
+    );
     res.status(201).sendStatus(201);
   } catch (err) {
     res.status(400).sendStatus(400);

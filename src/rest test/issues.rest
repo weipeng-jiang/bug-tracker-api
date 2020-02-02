@@ -1,7 +1,7 @@
 GET http://localhost:3000/api/issues
 
 ###
-GET http://localhost:3000/api/issues/74f
+GET http://localhost:3000/api/issues/2
 
 ###
 POST http://localhost:3000/api/issues/
@@ -18,14 +18,14 @@ Content-Type: application/json
 }
 
 ###
-PATCH http://localhost:3000/api/issues/15
+PATCH http://localhost:3000/api/issues/2
 Content-Type: application/json
 
 {
-  "priority_id":"00",
+  "priority_id":"11",
   "status_id":"1",
-  "title":"",
-  "description":"data security breach"
+  "title":"security breach",
+  "description":"data security "
 }
 
 ###

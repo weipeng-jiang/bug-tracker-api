@@ -24,6 +24,7 @@ user.retrieveById = user_id => {
   });
 };
 
+// TODO: bug, last_login not needed
 user.createNewUser = (
   role_id,
   user_fName,
@@ -44,6 +45,7 @@ user.createNewUser = (
   });
 };
 
+// TODO: still need work for retrieveEmailAndPassword userLogin
 user.retrieveEmailAndPassword = email => {
   return new Promise((resolve, reject) => {
     db.query(
@@ -70,6 +72,7 @@ user.userLogin = (email, password) => {
   });
 };
 
+// TODD: make sure user is logged in
 user.updateUser = (
   role_id,
   user_fName,

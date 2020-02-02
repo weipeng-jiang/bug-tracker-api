@@ -26,6 +26,7 @@ router.get("/user_id/:user_id", async (req, res) => {
   }
 });
 
+// TODO: bug, last_login not needed
 router.post("/", async (req, res) => {
   const { role_id, user_fName, user_lName, email, last_login } = req.body;
 
@@ -46,6 +47,7 @@ router.post("/", async (req, res) => {
   }
 });
 
+// TODO: still need work
 router.post("/login", async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
@@ -66,6 +68,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
+// TODD: make sure user is logged in
 router.patch("/:user_id", async (req, res) => {
   const user_id = req.params.user_id;
   const { role_id, user_fName, user_lName, email, password } = req.body;

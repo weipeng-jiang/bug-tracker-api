@@ -50,7 +50,7 @@ assignee.retrieveByUserAndIssueId = (user_id, issue_id) => {
   });
 };
 
-assignee.insert = (user_id, issue_id) => {
+assignee.assignUserToIssue = (user_id, issue_id) => {
   return new Promise((resolve, reject) => {
     db.query(
       `INSERT INTO assignees (user_id, issue_id) VALUES ($1, $2)`,
@@ -62,5 +62,7 @@ assignee.insert = (user_id, issue_id) => {
     );
   });
 };
+
+// TODO: create DELETE endpoint
 
 module.exports = assignee;
