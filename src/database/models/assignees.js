@@ -1,8 +1,8 @@
 const db = require("../");
 
-let assignee = {};
+let assignees = {};
 
-assignee.retrieveAll = () => {
+assignees.retrieveAll = () => {
   return new Promise((resolve, reject) => {
     db.query("SELECT * FROM assignees", (err, result) => {
       if (err.error) return reject(err);
@@ -11,7 +11,7 @@ assignee.retrieveAll = () => {
   });
 };
 
-assignee.retrieveByUserId = user_id => {
+assignees.retrieveByUserId = user_id => {
   return new Promise((resolve, reject) => {
     db.query(
       "SELECT * FROM assignees WHERE user_id=$1",
@@ -24,7 +24,7 @@ assignee.retrieveByUserId = user_id => {
   });
 };
 
-assignee.retrieveByIssueId = issue_id => {
+assignees.retrieveByIssueId = issue_id => {
   return new Promise((resolve, reject) => {
     db.query(
       "SELECT * FROM assignees WHERE issue_id=$1",
@@ -37,7 +37,7 @@ assignee.retrieveByIssueId = issue_id => {
   });
 };
 
-assignee.retrieveByUserAndIssueId = (user_id, issue_id) => {
+assignees.retrieveByUserAndIssueId = (user_id, issue_id) => {
   return new Promise((resolve, reject) => {
     db.query(
       "SELECT * FROM assignees WHERE user_id=$1 AND issue_id=$2",
@@ -50,7 +50,7 @@ assignee.retrieveByUserAndIssueId = (user_id, issue_id) => {
   });
 };
 
-assignee.assignUserToIssue = (user_id, issue_id) => {
+assignees.assignUserToIssue = (user_id, issue_id) => {
   return new Promise((resolve, reject) => {
     db.query(
       `INSERT INTO assignees (user_id, issue_id) VALUES ($1, $2)`,
@@ -63,6 +63,17 @@ assignee.assignUserToIssue = (user_id, issue_id) => {
   });
 };
 
-// TODO: create DELETE endpoint
+assignees.removeUserFromIssue = (user_id, issue_id) => {
+  return new Promise((resolve, reject) => {
+    db.query(
+      `DELETE FROM assignees WHERE user_id=$1 AND issue_id=$2`,
+      [user_id, issue_id],
+      (err, result) => {
+        if (err.error) return reject(err);
+        resolve(result[0]);
+      }
+    );
+  });
+};
 
-module.exports = assignee;
+module.exports = assignees;

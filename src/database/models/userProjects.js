@@ -1,8 +1,8 @@
 const db = require("../");
 
-let userProject = {};
+let userProjects = {};
 
-userProject.retrieveAll = () => {
+userProjects.retrieveAll = () => {
   return new Promise((resolve, reject) => {
     db.query("SELECT * FROM user_projects", (err, result) => {
       if (err.error) return reject(err);
@@ -11,7 +11,7 @@ userProject.retrieveAll = () => {
   });
 };
 
-userProject.retrieveByUserId = user_id => {
+userProjects.retrieveByUserId = user_id => {
   return new Promise((resolve, reject) => {
     db.query(
       "SELECT * FROM user_projects WHERE user_id=$1",
@@ -24,7 +24,7 @@ userProject.retrieveByUserId = user_id => {
   });
 };
 
-userProject.retrieveByProjectId = project_id => {
+userProjects.retrieveByProjectId = project_id => {
   return new Promise((resolve, reject) => {
     db.query(
       "SELECT * FROM user_projects WHERE project_id=$1",
@@ -37,7 +37,7 @@ userProject.retrieveByProjectId = project_id => {
   });
 };
 
-userProject.retrieveByUserAndProjectId = (user_id, project_id) => {
+userProjects.retrieveByUserAndProjectId = (user_id, project_id) => {
   return new Promise((resolve, reject) => {
     db.query(
       "SELECT * FROM user_projects WHERE user_id=$1 AND project_id=$2",
@@ -50,7 +50,7 @@ userProject.retrieveByUserAndProjectId = (user_id, project_id) => {
   });
 };
 
-userProject.assignUserToProject = (user_id, project_id, user_assign_date) => {
+userProjects.assignUserToProject = (user_id, project_id, user_assign_date) => {
   return new Promise((resolve, reject) => {
     db.query(
       `INSERT INTO user_projects (user_id, project_id, user_assign_date) VALUES ($1, $2, $3)`,
@@ -63,7 +63,7 @@ userProject.assignUserToProject = (user_id, project_id, user_assign_date) => {
   });
 };
 
-userProject.update = (user_id, project_id, user_exit_date) => {
+userProjects.update = (user_id, project_id, user_exit_date) => {
   return new Promise((resolve, reject) => {
     db.query(
       `UPDATE user_projects SET user_exit_date=$3 WHERE user_id=$1 AND project_id=$2`,
@@ -76,4 +76,4 @@ userProject.update = (user_id, project_id, user_exit_date) => {
   });
 };
 
-module.exports = userProject;
+module.exports = userProjects;
