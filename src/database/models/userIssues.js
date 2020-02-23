@@ -1,20 +1,20 @@
-const db = require("../");
+const db = require("..");
 
-let assignees = {};
+let userIssues = {};
 
-assignees.retrieveAll = () => {
+userIssues.retrieveAll = () => {
   return new Promise((resolve, reject) => {
-    db.query("SELECT * FROM assignees", (err, result) => {
+    db.query("SELECT * FROM userIssues", (err, result) => {
       if (err.error) return reject(err);
       resolve(result);
     });
   });
 };
 
-assignees.retrieveByUserId = user_id => {
+userIssues.retrieveByUserId = user_id => {
   return new Promise((resolve, reject) => {
     db.query(
-      "SELECT * FROM assignees WHERE user_id=$1",
+      "SELECT * FROM userIssues WHERE user_id=$1",
       [user_id],
       (err, result) => {
         if (err.error) return reject(err);
@@ -24,10 +24,10 @@ assignees.retrieveByUserId = user_id => {
   });
 };
 
-assignees.retrieveByIssueId = issue_id => {
+userIssues.retrieveByIssueId = issue_id => {
   return new Promise((resolve, reject) => {
     db.query(
-      "SELECT * FROM assignees WHERE issue_id=$1",
+      "SELECT * FROM userIssues WHERE issue_id=$1",
       [issue_id],
       (err, result) => {
         if (err.error) return reject(err);
@@ -37,10 +37,10 @@ assignees.retrieveByIssueId = issue_id => {
   });
 };
 
-assignees.retrieveByUserAndIssueId = (user_id, issue_id) => {
+userIssues.retrieveByUserAndIssueId = (user_id, issue_id) => {
   return new Promise((resolve, reject) => {
     db.query(
-      "SELECT * FROM assignees WHERE user_id=$1 AND issue_id=$2",
+      "SELECT * FROM userIssues WHERE user_id=$1 AND issue_id=$2",
       [user_id, issue_id],
       (err, result) => {
         if (err.error) return reject(err);
@@ -50,10 +50,10 @@ assignees.retrieveByUserAndIssueId = (user_id, issue_id) => {
   });
 };
 
-assignees.assignUserToIssue = (user_id, issue_id) => {
+userIssues.assignUserToIssue = (user_id, issue_id) => {
   return new Promise((resolve, reject) => {
     db.query(
-      `INSERT INTO assignees (user_id, issue_id) VALUES ($1, $2)`,
+      `INSERT INTO userIssues (user_id, issue_id) VALUES ($1, $2)`,
       [user_id, issue_id],
       (err, result) => {
         if (err.error) return reject(err);
@@ -63,10 +63,10 @@ assignees.assignUserToIssue = (user_id, issue_id) => {
   });
 };
 
-assignees.removeUserFromIssue = (user_id, issue_id) => {
+userIssues.removeUserFromIssue = (user_id, issue_id) => {
   return new Promise((resolve, reject) => {
     db.query(
-      `DELETE FROM assignees WHERE user_id=$1 AND issue_id=$2`,
+      `DELETE FROM userIssues WHERE user_id=$1 AND issue_id=$2`,
       [user_id, issue_id],
       (err, result) => {
         if (err.error) return reject(err);
@@ -76,4 +76,4 @@ assignees.removeUserFromIssue = (user_id, issue_id) => {
   });
 };
 
-module.exports = assignees;
+module.exports = userIssues;
