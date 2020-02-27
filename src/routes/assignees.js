@@ -1,12 +1,13 @@
 const express = require("express");
 const assignee = require("../database/models/assignees");
+const humps = require("humps");
 
 const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
     const result = await assignee.retrieveAll();
-    res.status(200).json(result);
+    res.status(200).json(humps.camelizeKeys(result));
   } catch (err) {
     res.status(400).sendStatus(400);
   }
@@ -20,7 +21,7 @@ router.get("/user/:user_id", async (req, res) => {
     if (!result) {
       return res.status(404).json({ message: "User ID not found" });
     }
-    res.status(200).json(result);
+    res.status(200).json(humps.camelizeKeys(result));
   } catch (err) {
     res.status(400).sendStatus(400);
   }
@@ -34,7 +35,7 @@ router.get("/issue/:issue_id", async (req, res) => {
     if (!result) {
       return res.status(404).json({ message: "Issue ID not found" });
     }
-    res.status(200).json(result);
+    res.status(200).json(humps.camelizeKeys(result));
   } catch (err) {
     res.status(400).sendStatus(400);
   }
@@ -48,7 +49,7 @@ router.get("/:user_id/:issue_id", async (req, res) => {
     if (!result) {
       return res.status(404).json({ message: "User ID or Issue ID not found" });
     }
-    res.status(200).json(result);
+    res.status(200).json(humps.camelizeKeys(result));
   } catch (err) {
     res.status(400).sendStatus(400);
   }
