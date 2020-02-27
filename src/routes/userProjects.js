@@ -1,12 +1,13 @@
 const express = require("express");
 const userProjects = require("../database/models/userProjects");
+const humps = require("humps");
 
 const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
     const result = await userProjects.retrieveAll();
-    res.status(200).json(result);
+    res.status(200).json(humps.camelizeKeys(result));
   } catch (err) {
     res.status(400).sendStatus(400);
   }
@@ -20,7 +21,7 @@ router.get("/user/:user_id", async (req, res) => {
     if (!result) {
       return res.status(404).json({ message: "User ID not found" });
     }
-    res.status(200).json(result);
+    res.status(200).json(humps.camelizeKeys(result));
   } catch (err) {
     res.status(400).sendStatus(400);
   }
@@ -34,7 +35,7 @@ router.get("/project/:project_id", async (req, res) => {
     if (!result) {
       return res.status(404).json({ message: "Project ID not found" });
     }
-    res.status(200).json(result);
+    res.status(200).json(humps.camelizeKeys(result));
   } catch (err) {
     res.status(400).sendStatus(400);
   }
@@ -53,7 +54,7 @@ router.get("/:user_id/:project_id", async (req, res) => {
         .status(404)
         .json({ message: "User ID or Project ID not found" });
     }
-    res.status(200).json(result);
+    res.status(200).json(humps.camelizeKeys(result));
   } catch (err) {
     res.status(400).sendStatus(400);
   }

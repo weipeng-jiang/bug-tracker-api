@@ -1,13 +1,14 @@
 const express = require("express");
-const user = require("../database/models/users");
+const users = require("../database/models/users");
+const humps = require("humps");
 const bcrypt = require("bcrypt");
 
 const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
-    const result = await user.retrieveAll();
-    res.status(200).json(result);
+    const result = await users.retrieveAll();
+    res.status(200).json(humps.camelizeKeys(result));
   } catch (err) {
     res.status(400).sendStatus;
   }
@@ -16,11 +17,11 @@ router.get("/", async (req, res) => {
 router.get("/user_id/:user_id", async (req, res) => {
   const user_id = req.params.user_id;
   try {
-    const result = await user.retrieveById(user_id);
+    const result = await users.retrieveById(user_id);
     if (!result) {
       return res.status(404).sendStatus(404);
     }
-    res.status(200).json(result);
+    res.status(200).json(humps.camelizeKeys(result));
   } catch (err) {
     res.status(400).sendStatus(400);
   }
@@ -33,7 +34,7 @@ router.post("/", async (req, res) => {
   const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
   try {
-    await user.createNewUser(
+    await users.createNewUser(
       role_id,
       user_fName,
       user_lName,
@@ -52,7 +53,7 @@ router.post("/login", async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
 
-  const userLogin = await user.retrieveEmailAndPassword(email);
+  const userLogin = await users.retrieveEmailAndPassword(email);
 
   if (!userLogin) {
     return res.status(404).sendStatus(404);
@@ -74,11 +75,11 @@ router.patch("/:user_id", async (req, res) => {
   const { role_id, user_fName, user_lName, email, password } = req.body;
 
   try {
-    const result = await user.retrieveById(user_id);
+    const result = await users.retrieveById(user_id);
     if (!result) {
       return res.status(404).json({ message: "User ID not found" });
     }
-    await user.updateUser(
+    await users.updateUser(
       role_id,
       user_fName,
       user_lName,
@@ -96,11 +97,11 @@ router.delete("/:user_id", async (req, res) => {
   const user_id = req.params.user_id;
 
   try {
-    const result = await user.retrieveById(user_id);
+    const result = await users.retrieveById(user_id);
     if (!result) {
       return res.status(404).json({ message: "User ID is not found" });
     }
-    await user.deleteUser(user_id);
+    await users.deleteUser(user_id);
     res.status(200).sendStatus(200);
   } catch (err) {
     res.status(400).sendStatus(400);

@@ -1,12 +1,13 @@
 const express = require("express");
 const issues = require("../database/models/issues");
+const humps = require("humps");
 
 const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
     const result = await issues.retrieveAll();
-    res.status(200).json(result);
+    res.status(200).json(humps.camelizeKeys(result));
   } catch (err) {
     res.status(400).sendStatus(400);
   }
@@ -19,7 +20,7 @@ router.get("/:issue_id", async (req, res) => {
     if (!result) {
       return res.status(404).json({ message: "Issue ID is not found" });
     }
-    res.status(200).json(result);
+    res.status(200).json(humps.camelizeKeys(result));
   } catch (err) {
     res.status(400).sendStatus(400);
   }
