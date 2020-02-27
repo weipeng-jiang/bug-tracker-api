@@ -1,0 +1,22 @@
+GET http://localhost:3000/api/userIssues
+
+###
+GET http://localhost:3000/api/userIssues/user/12
+
+###
+GET http://localhost:3000/api/userIssues/issue/1
+
+###
+GET http://localhost:3000/api/userIssues/12/2
+
+###
+POST http://localhost:3000/api/userIssues/
+Content-Type: application/json
+
+{
+  "user_id":"12",
+  "issue_id":"2"
+}
+
+###
+DELETE http://localhost:3000/api/userIssues/12/2

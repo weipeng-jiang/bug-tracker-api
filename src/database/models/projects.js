@@ -1,8 +1,8 @@
 const db = require("../index");
 
-let project = {};
+let projects = {};
 
-project.retrieveAll = () => {
+projects.retrieveAll = () => {
   return new Promise((resolve, reject) => {
     db.query("SELECT * FROM projects", (err, result) => {
       if (err.error) return reject(err);
@@ -11,7 +11,7 @@ project.retrieveAll = () => {
   });
 };
 
-project.retrieveById = project_id => {
+projects.retrieveById = project_id => {
   return new Promise((resolve, reject) => {
     db.query(
       `SELECT * FROM projects WHERE project_id=$1`,
@@ -24,7 +24,7 @@ project.retrieveById = project_id => {
   });
 };
 
-project.createNewProject = (project_name, description, date_created) => {
+projects.createNewProject = (project_name, description, date_created) => {
   return new Promise((resolve, reject) => {
     db.query(
       `INSERT INTO projects (project_name, description, date_created) VALUES ($1, $2, $3)`,
@@ -37,9 +37,9 @@ project.createNewProject = (project_name, description, date_created) => {
   });
 };
 
-//TODO update
+//TODO: PATCH endpoint
 
-project.deleteProject = project_id => {
+projects.deleteProject = project_id => {
   return new Promise((resolve, reject) => {
     db.query(
       "DELETE FROM projects WHERE project_id=$1",
@@ -52,6 +52,4 @@ project.deleteProject = project_id => {
   });
 };
 
-module.exports = project;
-
-// INSERT INTO projects (project_name, description, date_created) VALUES ('sun', 'Chasing the sun', '2004-10-19 08:23:54 +0000');
+module.exports = projects;

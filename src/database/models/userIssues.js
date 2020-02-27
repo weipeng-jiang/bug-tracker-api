@@ -1,34 +1,33 @@
-const db = require("../");
+const db = require("..");
 
-let comments = {};
+let userIssues = {};
 
-comments.retrieveAll = () => {
+userIssues.retrieveAll = () => {
   return new Promise((resolve, reject) => {
-    db.query("SELECT * FROM comments", (err, result) => {
+    db.query("SELECT * FROM userIssues", (err, result) => {
       if (err.error) return reject(err);
       resolve(result);
     });
   });
 };
 
-comments.retrieveByCommentId = comment_id => {
+userIssues.retrieveByUserId = user_id => {
   return new Promise((resolve, reject) => {
     db.query(
-      "SELECT * FROM comments WHERE comment_id=$1",
-      [comment_id],
+      "SELECT * FROM userIssues WHERE user_id=$1",
+      [user_id],
       (err, result) => {
         if (err.error) return reject(err);
-        resolve(result[0]);
+        resolve(result);
       }
     );
   });
 };
 
-// TODO: GET endpoint, retrieve comment/s by issue id
-comments.retrieveCommentsByIssueId = issue_id => {
+userIssues.retrieveByIssueId = issue_id => {
   return new Promise((resolve, reject) => {
     db.query(
-      "SELECT * FROM comments WHERE issue_id=$1",
+      "SELECT * FROM userIssues WHERE issue_id=$1",
       [issue_id],
       (err, result) => {
         if (err.error) return reject(err);
@@ -38,11 +37,11 @@ comments.retrieveCommentsByIssueId = issue_id => {
   });
 };
 
-comments.createNewComment = (issue_id, user_id, description, comment_date) => {
+userIssues.retrieveByUserAndIssueId = (user_id, issue_id) => {
   return new Promise((resolve, reject) => {
     db.query(
-      `INSERT INTO comments (issue_id, user_id, description, comment_date) VALUES ($1, $2, $3, $4)`,
-      [issue_id, user_id, description, comment_date],
+      "SELECT * FROM userIssues WHERE user_id=$1 AND issue_id=$2",
+      [user_id, issue_id],
       (err, result) => {
         if (err.error) return reject(err);
         resolve(result);
@@ -51,11 +50,11 @@ comments.createNewComment = (issue_id, user_id, description, comment_date) => {
   });
 };
 
-comments.updateComment = (description, edit_date, comment_id) => {
+userIssues.assignUserToIssue = (user_id, issue_id) => {
   return new Promise((resolve, reject) => {
     db.query(
-      `UPDATE comments SET description=$1, edit_date=$2 WHERE comment_id=$3`,
-      [description, edit_date, comment_id],
+      `INSERT INTO userIssues (user_id, issue_id) VALUES ($1, $2)`,
+      [user_id, issue_id],
       (err, result) => {
         if (err.error) return reject(err);
         resolve(result);
@@ -64,11 +63,11 @@ comments.updateComment = (description, edit_date, comment_id) => {
   });
 };
 
-comments.deleteComment = comment_id => {
+userIssues.removeUserFromIssue = (user_id, issue_id) => {
   return new Promise((resolve, reject) => {
     db.query(
-      `DELETE FROM comments WHERE comment_id=$1`,
-      [comment_id],
+      `DELETE FROM userIssues WHERE user_id=$1 AND issue_id=$2`,
+      [user_id, issue_id],
       (err, result) => {
         if (err.error) return reject(err);
         resolve(result[0]);
@@ -77,4 +76,4 @@ comments.deleteComment = comment_id => {
   });
 };
 
-module.exports = comments;
+module.exports = userIssues;

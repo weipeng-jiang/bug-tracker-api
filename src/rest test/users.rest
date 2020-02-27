@@ -1,22 +1,22 @@
+### reteriveAll 
 GET http://localhost:3000/api/users
 
-###
-GET http://localhost:3000/api/users/12
+### retrieveById
+GET http://localhost:3000/api/users/user_id/12
 
-
-###
+### createNewUser
 POST http://localhost:3000/api/users/
 Content-Type: application/json
 
 {
   "role_id":"1",
-  "user_fName":"dfgfd",
-  "user_lName": "fdgf",
-  "email":"junyang@dfgd.com",
-  "password":"dsfsd"
+  "user_fName":"eric",
+  "user_lName": "shin",
+  "email":"eric@gmail.com",
+  "password":"password"
 }
 
-###
+### updateUser
 PATCH http://localhost:3000/api/users/5
 Content-Type: application/json
 
@@ -24,9 +24,18 @@ Content-Type: application/json
   "role_id":"1",
   "user_fName":"Webber",
   "user_lName":"Jiang",
-  "email":"dsgfd",
+  "email":"fgfd",
   "password":"12345"
 }
 
-###
-DELETE  http://localhost:3000/api/users/3
+### login uses retrieveEmailAndPassword
+POST http://localhost:3000/api/users/login
+Content-Type: application/json
+
+{
+  "email":"james@gmail.com",
+  "password":"password"
+}
+
+### deleteUser
+DELETE  http://localhost:3000/api/users/12

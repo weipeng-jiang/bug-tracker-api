@@ -1,8 +1,8 @@
 const db = require("../index");
 
-let issue = {};
+let issues = {};
 
-issue.retrieveAll = () => {
+issues.retrieveAll = () => {
   return new Promise((resolve, reject) => {
     db.query("SELECT * FROM issues", (err, result) => {
       if (err.error) return reject(err);
@@ -11,7 +11,7 @@ issue.retrieveAll = () => {
   });
 };
 
-issue.retrieveById = issue_id => {
+issues.retrieveById = issue_id => {
   return new Promise((resolve, reject) => {
     db.query(
       "SELECT * FROM issues WHERE issue_id=$1",
@@ -24,7 +24,21 @@ issue.retrieveById = issue_id => {
   });
 };
 
-issue.createNewIssue = (
+// TODO: GET endpoint retrieveIssuesByProject_Id
+issues.retrieveIssuesByProjectId = project_id => {
+  return new Promise((resolve, reject) => {
+    db.query(
+      "SELECT * FROM issues WHERE project_id=$1",
+      [project_id],
+      (err, result) => {
+        if (err.error) return reject(err);
+        resolve(result);
+      }
+    );
+  });
+};
+
+issues.createNewIssue = (
   project_id,
   priority_id,
   user_id,
@@ -53,7 +67,8 @@ issue.createNewIssue = (
   });
 };
 
-issue.updateIssue = (priority_id, status_id, title, description, issue_id) => {
+// TODO: bug, fix patch endpoint to update selected fields
+issues.updateIssue = (priority_id, status_id, title, description, issue_id) => {
   return new Promise((resolve, reject) => {
     db.query(
       `UPDATE issues SET priority_id=$1, status_id=$2, title=$3, description=$4 WHERE issue_id=$5`,
@@ -66,7 +81,7 @@ issue.updateIssue = (priority_id, status_id, title, description, issue_id) => {
   });
 };
 
-issue.deleteIssue = issue_id => {
+issues.deleteIssue = issue_id => {
   return new Promise((resolve, reject) => {
     db.query(
       `DELETE FROM issues WHERE issue_id=$1`,
@@ -79,7 +94,4 @@ issue.deleteIssue = issue_id => {
   });
 };
 
-// INSERT INTO issues(project_id, priority_id, user_id, status_id, title, description, report_date)
-// VALUES (6, '11', 12, '1', 'security breach', 'data security breach', '2004-10-19T08:23:54.000Z');
-
-module.exports = issue;
+module.exports = issues;

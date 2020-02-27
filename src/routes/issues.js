@@ -1,12 +1,12 @@
 const express = require("express");
-const issue = require("../database/models/issues");
+const issues = require("../database/models/issues");
 const humps = require("humps");
 
 const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
-    const result = await issue.retrieveAll();
+    const result = await issues.retrieveAll();
     res.status(200).json(humps.camelizeKeys(result));
   } catch (err) {
     res.status(400).sendStatus(400);
@@ -16,11 +16,21 @@ router.get("/", async (req, res) => {
 router.get("/:issue_id", async (req, res) => {
   const issue_id = req.params.issue_id;
   try {
-    const result = await issue.retrieveById(issue_id);
+    const result = await issues.retrieveById(issue_id);
     if (!result) {
       return res.status(404).json({ message: "Issue ID is not found" });
     }
     res.status(200).json(humps.camelizeKeys(result));
+  } catch (err) {
+    res.status(400).sendStatus(400);
+  }
+});
+
+router.get("/projects/:project_id", async (req, res) => {
+  const { project_id } = req.params;
+  try {
+    const result = await issues.retrieveIssuesByProjectId(project_id);
+    res.status(200).json(result);
   } catch (err) {
     res.status(400).sendStatus(400);
   }
@@ -38,7 +48,7 @@ router.post("/", async (req, res) => {
   } = req.body;
 
   try {
-    await issue.createNewIssue(
+    await issues.createNewIssue(
       project_id,
       priority_id,
       user_id,
@@ -53,16 +63,17 @@ router.post("/", async (req, res) => {
   }
 });
 
+// TODO: bug, fix patch endpoint to update selected fields
 router.patch("/:issue_id", async (req, res) => {
   const issue_id = req.params.issue_id;
   const { priority_id, status_id, title, description } = req.body;
 
   try {
-    const result = await issue.retrieveById(issue_id);
+    const result = await issues.retrieveById(issue_id);
     if (!result) {
       return res.status(404).json({ message: "Issue ID not found" });
     }
-    await issue.updateIssue(
+    await issues.updateIssue(
       priority_id,
       status_id,
       title,
@@ -79,11 +90,11 @@ router.delete("/:issue_id", async (req, res) => {
   const issue_id = req.params.issue_id;
 
   try {
-    const result = await issue.retrieveById(issue_id);
+    const result = await issues.retrieveById(issue_id);
     if (!result) {
       return res.status(404).json({ message: "Issue ID is not found" });
     }
-    await issue.deleteIssue(issue_id);
+    await issues.deleteIssue(issue_id);
     res.status(200).sendStatus(200);
   } catch (err) {
     res.status(400).sendStatus(400);
