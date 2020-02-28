@@ -30,7 +30,7 @@ router.get("/projects/:project_id", async (req, res) => {
   const { project_id } = req.params;
   try {
     const result = await issues.retrieveIssuesByProjectId(project_id);
-    res.status(200).json(result);
+    res.status(200).json(humps.camelizeKeys(result));
   } catch (err) {
     res.status(400).sendStatus(400);
   }
