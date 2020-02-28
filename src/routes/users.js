@@ -60,7 +60,7 @@ router.post("/login", async (req, res) => {
   }
   try {
     if (await bcrypt.compare(password, userLogin.password)) {
-      res.status(200).json(userLogin);
+      res.status(200).json(humps.camelizeKeys(userLogin));
     } else {
       res.status(400).send("not allowed");
     }

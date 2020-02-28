@@ -31,7 +31,7 @@ router.get("/issue/:issue_id", async (req, res) => {
 
   try {
     const result = await comments.retrieveCommentsByIssueId(issue_id);
-    res.status(200).json(result);
+    res.status(200).json(humps.camelizeKeys(result));
   } catch (err) {
     res.status(400).sendStatus(400);
   }
@@ -67,7 +67,7 @@ router.patch("/:comment_id", async (req, res) => {
       new Date().toUTCString(),
       comment_id
     );
-    res.status(200).json(await comments.retrieveByCommentId(comment_id));
+    res.status(200).sendStatus(200);
   } catch (err) {
     res.status(400).sendStatus(400);
   }
