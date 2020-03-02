@@ -11,7 +11,7 @@ POST http://localhost:3000/api/comments/
 Content-Type: application/json
 
 {
-  "issue_id":"19",
+  "issue_id":"1",
   "user_id":"5",
   "description":"New issue"
 }

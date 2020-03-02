@@ -87,7 +87,7 @@ router.patch("/:user_id", async (req, res) => {
       password,
       user_id
     );
-    res.status(200).sendStatus(200);
+    res.status(200).json(humps.camelizeKeys(await users.retrieveById(user_id)));
   } catch (err) {
     res.status(400).sendStatus(400);
   }

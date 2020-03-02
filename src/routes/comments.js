@@ -67,7 +67,9 @@ router.patch("/:comment_id", async (req, res) => {
       new Date().toUTCString(),
       comment_id
     );
-    res.status(200).sendStatus(200);
+    res
+      .status(200)
+      .json(humps.camelizeKeys(await comments.retrieveByCommentId(comment_id)));
   } catch (err) {
     res.status(400).sendStatus(400);
   }

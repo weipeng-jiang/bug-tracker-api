@@ -89,7 +89,13 @@ router.patch("/:user_id/:project_id", async (req, res) => {
         .json({ message: "User ID or Project ID not found" });
     }
     await userProjects.update(user_id, project_id, new Date().toUTCString());
-    res.status(200).sendStatus(200);
+    res
+      .status(200)
+      .json(
+        humps.camelizeKeys(
+          await userProjects.retrieveByUserAndProjectId(user_id, project_id)
+        )
+      );
   } catch (err) {
     res.sendStatus(400).sendStatus(400);
   }

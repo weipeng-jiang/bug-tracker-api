@@ -80,7 +80,9 @@ router.patch("/:issue_id", async (req, res) => {
       description,
       issue_id
     );
-    res.status(200).sendStatus(200);
+    res
+      .status(200)
+      .json(humps.camelizeKeys(await issues.retrieveById(issue_id)));
   } catch (err) {
     res.status(400).sendStatus(400);
   }
