@@ -4,10 +4,10 @@ GET http://localhost:3000/api/userIssues
 GET http://localhost:3000/api/userIssues/user/12
 
 ###
-GET http://localhost:3000/api/userIssues/issue/1
+GET http://localhost:3000/api/userIssues/issue/2
 
 ###
-GET http://localhost:3000/api/userIssues/12/2
+GET http://localhost:3000/api/userIssues/5/2
 
 ###
 POST http://localhost:3000/api/userIssues/
