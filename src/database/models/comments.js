@@ -11,7 +11,7 @@ comments.retrieveAll = () => {
   });
 };
 
-comments.retrieveByCommentId = comment_id => {
+comments.retrieveByCommentId = (comment_id) => {
   return new Promise((resolve, reject) => {
     db.query(
       "SELECT * FROM comments WHERE comment_id=$1",
@@ -24,8 +24,7 @@ comments.retrieveByCommentId = comment_id => {
   });
 };
 
-// TODO: GET endpoint, retrieve comment/s by issue id
-comments.retrieveCommentsByIssueId = issue_id => {
+comments.retrieveCommentsByIssueId = (issue_id) => {
   return new Promise((resolve, reject) => {
     db.query(
       "SELECT * FROM comments WHERE issue_id=$1",
@@ -64,7 +63,7 @@ comments.updateComment = (description, edit_date, comment_id) => {
   });
 };
 
-comments.deleteComment = comment_id => {
+comments.deleteComment = (comment_id) => {
   return new Promise((resolve, reject) => {
     db.query(
       `DELETE FROM comments WHERE comment_id=$1`,
