@@ -15,6 +15,12 @@
         "vars": "local",
         "args": "none"
       }
+    ],
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
     ]
   }
 }
