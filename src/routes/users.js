@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 
 const router = express.Router();
 
-router.get("/", async (res) => {
+router.get("/", async (req, res) => {
   try {
     const result = await users.retrieveAll();
     res.status(200).json(humps.camelizeKeys(result));
