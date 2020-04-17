@@ -4,7 +4,7 @@ const humps = require("humps");
 
 const router = express.Router();
 
-router.get("/", async (res) => {
+router.get("/", async (req, res) => {
   try {
     const result = await roles.retrieveAll();
     res.status(200).json(humps.camelizeKeys(result));
