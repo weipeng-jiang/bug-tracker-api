@@ -11,7 +11,7 @@ issues.retrieveAll = () => {
   });
 };
 
-issues.retrieveById = issue_id => {
+issues.retrieveById = (issue_id) => {
   return new Promise((resolve, reject) => {
     db.query(
       "SELECT * FROM issues WHERE issue_id=$1",
@@ -24,8 +24,7 @@ issues.retrieveById = issue_id => {
   });
 };
 
-// TODO: GET endpoint retrieveIssuesByProject_Id
-issues.retrieveIssuesByProjectId = project_id => {
+issues.retrieveIssuesByProjectId = (project_id) => {
   return new Promise((resolve, reject) => {
     db.query(
       "SELECT * FROM issues WHERE project_id=$1",
@@ -57,7 +56,7 @@ issues.createNewIssue = (
         status_id,
         title,
         description,
-        report_date
+        report_date,
       ],
       (err, result) => {
         if (err.error) return reject(err);
@@ -67,7 +66,6 @@ issues.createNewIssue = (
   });
 };
 
-// TODO: bug, fix patch endpoint to update selected fields
 issues.updateIssue = (priority_id, status_id, title, description, issue_id) => {
   return new Promise((resolve, reject) => {
     db.query(
@@ -81,7 +79,7 @@ issues.updateIssue = (priority_id, status_id, title, description, issue_id) => {
   });
 };
 
-issues.deleteIssue = issue_id => {
+issues.deleteIssue = (issue_id) => {
   return new Promise((resolve, reject) => {
     db.query(
       `DELETE FROM issues WHERE issue_id=$1`,

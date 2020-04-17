@@ -11,7 +11,7 @@ projects.retrieveAll = () => {
   });
 };
 
-projects.retrieveById = project_id => {
+projects.retrieveById = (project_id) => {
   return new Promise((resolve, reject) => {
     db.query(
       `SELECT * FROM projects WHERE project_id=$1`,
@@ -37,9 +37,20 @@ projects.createNewProject = (project_name, description, date_created) => {
   });
 };
 
-//TODO: PATCH endpoint
+projects.updateProject = (project_name, description, project_id) => {
+  return new Promise((resolve, reject) => {
+    db.query(
+      `UPDATE projects SET project_name=$1, description=$2 WHERE project_id=$3`,
+      [project_name, description, project_id],
+      (err, result) => {
+        if (err.error) return reject(err);
+        resolve(result);
+      }
+    );
+  });
+};
 
-projects.deleteProject = project_id => {
+projects.deleteProject = (project_id) => {
   return new Promise((resolve, reject) => {
     db.query(
       "DELETE FROM projects WHERE project_id=$1",

@@ -4,7 +4,7 @@ const humps = require("humps");
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/", async (res) => {
   try {
     const result = await issues.retrieveAll();
     res.status(200).json(humps.camelizeKeys(result));
@@ -44,7 +44,7 @@ router.post("/", async (req, res) => {
     status_id,
     title,
     description,
-    report_date
+    report_date,
   } = req.body;
 
   try {
@@ -63,7 +63,6 @@ router.post("/", async (req, res) => {
   }
 });
 
-// TODO: bug, fix patch endpoint to update selected fields
 router.patch("/:issue_id", async (req, res) => {
   const issue_id = req.params.issue_id;
   const { priority_id, status_id, title, description } = req.body;

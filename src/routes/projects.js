@@ -4,7 +4,7 @@ const humps = require("humps");
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/", async (res) => {
   try {
     const result = await projects.retrieveAll();
     res.status(200).json(humps.camelizeKeys(result));
@@ -37,7 +37,23 @@ router.post("/", async (req, res) => {
   }
 });
 
-//TODO? PATCH request to edit title and description of project
+router.patch("/:project_id", async (req, res) => {
+  const { project_name, description } = req.body;
+  const project_id = req.params.project_id;
+
+  try {
+    const foundId = await projects.retrieveById(project_id);
+    if (!foundId) {
+      return res.status(404).json({ message: "Project ID not found" });
+    }
+    await projects.updateProject(project_name, description, project_id);
+    res
+      .status(200)
+      .json(humps.camelizeKeys(await projects.retrieveById(project_id)));
+  } catch (err) {
+    res.status(400).sendStatus(400);
+  }
+});
 
 router.delete("/:project_id", async (req, res) => {
   const project_id = req.params.project_id;
