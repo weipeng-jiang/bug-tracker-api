@@ -49,25 +49,25 @@ router.post("/", async (req, res) => {
 });
 
 // TODO: still need work
-// router.post("/login", async (req, res) => {
-//   const email = req.body.email;
-//   const password = req.body.password;
+router.post("/login", async (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
 
-//   const userLogin = await users.retrieveEmailAndPassword(email);
+  const userLogin = await users.retrieveEmailAndPassword(email);
 
-//   if (!userLogin) {
-//     return res.status(404).sendStatus(404);
-//   }
-//   try {
-//     if (await bcrypt.compare(password, userLogin.password)) {
-//       res.status(200).json(humps.camelizeKeys(userLogin));
-//     } else {
-//       res.status(400).send("not allowed");
-//     }
-//   } catch {
-//     res.status(500).sendStatus(500);
-//   }
-// });
+  if (!userLogin) {
+    return res.status(404).sendStatus(404);
+  }
+  try {
+    if (await bcrypt.compare(password, userLogin.password)) {
+      res.status(200).json(humps.camelizeKeys(userLogin));
+    } else {
+      res.status(400).send("not allowed");
+    }
+  } catch (err) {
+    res.status(500).sendStatus(500);
+  }
+});
 
 // TODD: make sure user is logged in
 router.patch("/:user_id", async (req, res) => {
