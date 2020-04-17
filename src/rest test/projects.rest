@@ -13,6 +13,14 @@ Content-Type: application/json
   "date_created":"2004-10-19T08:23:54.000Z"
 }
 
+###
+PATCH http://localhost:3000/api/projects/5
+Content-Type: application/json
+
+{
+  "project_name":"hello3",
+  "description":"hello world3"
+}
 
 ###
 DELETE http://localhost:3000/api/projects/4
