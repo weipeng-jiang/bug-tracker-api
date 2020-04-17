@@ -4,7 +4,7 @@ const humps = require("humps");
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/", async (res) => {
   try {
     const result = await roles.retrieveAll();
     res.status(200).json(humps.camelizeKeys(result));
@@ -71,19 +71,19 @@ router.get("/:role_id", async (req, res) => {
 // });
 
 // TODO: apply middle ware
-async function roleId(req, res, next) {
-  let role;
-  try {
-    role = await roles.findById(req.params.role_id);
-    if (role == null) {
-      return res.status(404).sendStatus(404);
-    }
-  } catch (err) {
-    res.status(500).sendStatus(500);
-  }
+// async function roleId(req, res, next) {
+//   let role;
+//   try {
+//     role = await roles.findById(req.params.role_id);
+//     if (role == null) {
+//       return res.status(404).sendStatus(404);
+//     }
+//   } catch (err) {
+//     res.status(500).sendStatus(500);
+//   }
 
-  res.role = role;
-  next();
-}
+//   res.role = role;
+//   next();
+// }
 
 module.exports = router;

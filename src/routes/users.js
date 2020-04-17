@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/", async (res) => {
   try {
     const result = await users.retrieveAll();
     res.status(200).json(humps.camelizeKeys(result));
@@ -64,7 +64,7 @@ router.post("/login", async (req, res) => {
     } else {
       res.status(400).send("not allowed");
     }
-  } catch {
+  } catch (err) {
     res.status(500).sendStatus(500);
   }
 });

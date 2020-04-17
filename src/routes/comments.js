@@ -4,7 +4,7 @@ const humps = require("humps");
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/", async (res) => {
   try {
     const result = await comments.retrieveAll();
     res.status(200).json(humps.camelizeKeys(result));
