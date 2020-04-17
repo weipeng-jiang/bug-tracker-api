@@ -5,10 +5,7 @@ const CONNECTION_STRING =
   "postgres://fpirroxt:bRuA9HLENn3rxNNW_uzFJ2A0bUQw0oEO@rosie.db.elephantsql.com:5432/fpirroxt";
 const SSL = process.env.NODE_ENV === "production";
 
-const pool = new Pool({
-  connectionString: CONNECTION_STRING,
-  ssl: SSL
-});
+const pool = new Pool({ connectionString: CONNECTION_STRING, ssl: SSL });
 
 pool.on("error", (err, client) => {
   console.error("Unexpected error on idle PostgreSQL client.", err);
