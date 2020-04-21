@@ -88,7 +88,7 @@ router.patch("/:user_id/:project_id", async (req, res) => {
         .status(404)
         .json({ message: "User ID or Project ID not found" });
     }
-    await userProjects.updateUserExitDate(
+    await userProjects.updateUserExitProjectDate(
       user_id,
       project_id,
       new Date().toUTCString()

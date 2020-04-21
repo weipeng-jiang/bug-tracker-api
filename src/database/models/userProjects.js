@@ -63,7 +63,11 @@ userProjects.assignUserToProject = (user_id, project_id, user_assign_date) => {
   });
 };
 
-userProjects.updateUserExitDate = (user_id, project_id, user_exit_date) => {
+userProjects.updateUserExitProjectDate = (
+  user_id,
+  project_id,
+  user_exit_date
+) => {
   return new Promise((resolve, reject) => {
     db.query(
       `UPDATE user_projects SET user_exit_date=$3 WHERE user_id=$1 AND project_id=$2`,
