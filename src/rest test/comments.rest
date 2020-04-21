@@ -1,13 +1,13 @@
-GET http://localhost:3000/api/comments
+GET http://localhost:3001/api/comments
 
 ###
-GET http://localhost:3000/api/comments/1
+GET http://localhost:3001/api/comments/1
 
 ###
-GET http://localhost:3000/api/comments/issue/19
+GET http://localhost:3001/api/comments/issue/19
 
 ###
-POST http://localhost:3000/api/comments/
+POST http://localhost:3001/api/comments/
 Content-Type: application/json
 
 {
@@ -17,7 +17,7 @@ Content-Type: application/json
 }
 
 ###
-PATCH http://localhost:3000/api/comments/7
+PATCH http://localhost:3001/api/comments/7
 Content-Type: application/json
 
 {
@@ -25,4 +25,4 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:3000/api/comments/7
+DELETE http://localhost:3001/api/comments/7
