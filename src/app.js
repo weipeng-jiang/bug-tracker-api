@@ -37,7 +37,7 @@ app.use("/api/priority", checkJwt, require("./routes/priority"));
 app.use("/api/projects", checkJwt, require("./routes/projects"));
 app.use("/api/users", checkJwt, require("./routes/users"));
 app.use("/api/issues", checkJwt, require("./routes/issues"));
-app.use("/api/comments", checkJwt, require("./routes/comments"));
+app.use("/api/comments", require("./routes/comments"));
 app.use("/api/userProjects", checkJwt, require("./routes/userProjects"));
 app.use("/api/userIssues", checkJwt, require("./routes/userIssues"));
 
