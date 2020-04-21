@@ -28,7 +28,7 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon -r dotenv/config src/server.js",
-    "test": "jest --detectOpenHandles --forceExit",
+    "test": "jest --silent --detectOpenHandles --forceExit",
     "pre-commit": "lint-staged"
   },
   "lint-staged": {
