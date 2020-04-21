@@ -18,7 +18,7 @@ router.get("/:project_id", async (req, res) => {
   try {
     const result = await projects.retrieveById(project_id);
     if (!result) {
-      return res.status(404).sendStatus(404);
+      return res.status(404).json({ message: "Project ID is not found" });
     }
     res.status(200).json(humps.camelizeKeys(result));
   } catch (err) {
@@ -27,10 +27,14 @@ router.get("/:project_id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { project_name, description, date_created } = req.body;
+  const { project_name, description } = req.body;
 
   try {
-    await projects.createNewProject(project_name, description, date_created);
+    await projects.createNewProject(
+      project_name,
+      description,
+      new Date().toUTCString()
+    );
     res.status(201).sendStatus(201);
   } catch (err) {
     res.status(400).sendStatus(400);
