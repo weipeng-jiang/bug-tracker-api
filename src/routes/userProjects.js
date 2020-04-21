@@ -19,7 +19,7 @@ router.get("/user/:user_id", async (req, res) => {
   try {
     const result = await userProjects.retrieveByUserId(user_id);
     if (result.length == 0) {
-      return res.status(404).json({ message: "User ID not found" });
+      return res.status(404).json({ message: "User ID is not found" });
     }
     res.status(200).json(humps.camelizeKeys(result));
   } catch (err) {
@@ -33,7 +33,7 @@ router.get("/project/:project_id", async (req, res) => {
   try {
     const result = await userProjects.retrieveByProjectId(project_id);
     if (result.length == 0) {
-      return res.status(404).json({ message: "Project ID not found" });
+      return res.status(404).json({ message: "Project ID is not found" });
     }
     res.status(200).json(humps.camelizeKeys(result));
   } catch (err) {
@@ -83,7 +83,7 @@ router.patch("/:user_id/:project_id", async (req, res) => {
       user_id,
       project_id
     );
-    if (!result) {
+    if (result.length == 0) {
       return res
         .status(404)
         .json({ message: "User ID or Project ID not found" });

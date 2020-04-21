@@ -1,7 +1,7 @@
 GET http://localhost:3000/api/userIssues
 
 ###
-GET http://localhost:3000/api/userIssues/user/12
+GET http://localhost:3000/api/userIssues/user/5
 
 ###
 GET http://localhost:3000/api/userIssues/issue/2

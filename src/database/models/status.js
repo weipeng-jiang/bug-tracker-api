@@ -11,7 +11,7 @@ status.retrieveAll = () => {
   });
 };
 
-status.retrieveById = status_id => {
+status.retrieveById = (status_id) => {
   return new Promise((resolve, reject) => {
     db.query(
       "SELECT * FROM status WHERE status_id=$1",

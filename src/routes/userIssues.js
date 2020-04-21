@@ -19,7 +19,7 @@ router.get("/user/:user_id", async (req, res) => {
   try {
     const result = await userIssues.retrieveByUserId(user_id);
     if (result.length == 0) {
-      return res.status(404).json({ message: "User ID not found" });
+      return res.status(404).json({ message: "User ID is not found" });
     }
     res.status(200).json(humps.camelizeKeys(result));
   } catch (err) {
@@ -33,7 +33,7 @@ router.get("/issue/:issue_id", async (req, res) => {
   try {
     const result = await userIssues.retrieveByIssueId(issue_id);
     if (result.length == 0) {
-      return res.status(404).json({ message: "Issue ID not found" });
+      return res.status(404).json({ message: "Issue ID is not found" });
     }
     res.status(200).json(humps.camelizeKeys(result));
   } catch (err) {
@@ -72,7 +72,7 @@ router.delete("/:user_id/:issue_id", async (req, res) => {
   try {
     const result = await userIssues.retrieveByUserAndIssueId(user_id, issue_id);
     if (!result) {
-      return res.status(404).json({ message: "Assignee is not found" });
+      return res.status(404).json({ message: "User or issue is not found" });
     }
     await userIssues.removeUserFromIssue(user_id, issue_id);
     res.status(200).sendStatus(200);
