@@ -1,16 +1,16 @@
-GET http://localhost:3000/api/userIssues
+GET http://localhost:3001/api/userIssues
 
 ###
-GET http://localhost:3000/api/userIssues/user/12
+GET http://localhost:3001/api/userIssues/user/12
 
 ###
-GET http://localhost:3000/api/userIssues/issue/2
+GET http://localhost:3001/api/userIssues/issue/2
 
 ###
-GET http://localhost:3000/api/userIssues/5/2
+GET http://localhost:3001/api/userIssues/5/2
 
 ###
-POST http://localhost:3000/api/userIssues/
+POST http://localhost:3001/api/userIssues/
 Content-Type: application/json
 
 {
@@ -19,4 +19,4 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:3000/api/userIssues/12/2
+DELETE http://localhost:3001/api/userIssues/12/2

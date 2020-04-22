@@ -1,4 +1,4 @@
-GET http://localhost:3000/api/priority
+GET http://localhost:3001/api/priority
 
 ###
-GET http://localhost:3000/api/priority/111
+GET http://localhost:3001/api/priority/111
