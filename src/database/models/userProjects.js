@@ -11,7 +11,7 @@ userProjects.retrieveAll = () => {
   });
 };
 
-userProjects.retrieveByUserId = user_id => {
+userProjects.retrieveByUserId = (user_id) => {
   return new Promise((resolve, reject) => {
     db.query(
       "SELECT * FROM user_projects WHERE user_id=$1",
@@ -24,7 +24,7 @@ userProjects.retrieveByUserId = user_id => {
   });
 };
 
-userProjects.retrieveByProjectId = project_id => {
+userProjects.retrieveByProjectId = (project_id) => {
   return new Promise((resolve, reject) => {
     db.query(
       "SELECT * FROM user_projects WHERE project_id=$1",
@@ -63,7 +63,11 @@ userProjects.assignUserToProject = (user_id, project_id, user_assign_date) => {
   });
 };
 
-userProjects.update = (user_id, project_id, user_exit_date) => {
+userProjects.updateUserExitProjectDate = (
+  user_id,
+  project_id,
+  user_exit_date
+) => {
   return new Promise((resolve, reject) => {
     db.query(
       `UPDATE user_projects SET user_exit_date=$3 WHERE user_id=$1 AND project_id=$2`,
