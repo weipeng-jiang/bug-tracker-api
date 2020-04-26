@@ -1,6 +1,7 @@
 const express = require("express");
-const issues = require("../database/models/issues");
 const humps = require("humps");
+const issues = require("../database/models/issues");
+const regex = require("../utils/regex");
 
 const router = express.Router();
 
@@ -14,7 +15,12 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:issue_id", async (req, res) => {
-  const issue_id = req.params.issue_id;
+  const { issue_id } = req.params;
+
+  if (!issue_id.match(regex)) {
+    return res.status(400).sendStatus(400);
+  }
+
   try {
     const result = await issues.retrieveById(issue_id);
     if (!result) {
@@ -28,8 +34,16 @@ router.get("/:issue_id", async (req, res) => {
 
 router.get("/projects/:project_id", async (req, res) => {
   const { project_id } = req.params;
+
+  if (!project_id.match(regex)) {
+    return res.status(400).sendStatus(400);
+  }
+
   try {
     const result = await issues.retrieveIssuesByProjectId(project_id);
+    if (result.length == 0) {
+      return res.status(404).json({ message: "Project ID is not found" });
+    }
     res.status(200).json(humps.camelizeKeys(result));
   } catch (err) {
     res.status(400).sendStatus(400);
@@ -64,13 +78,17 @@ router.post("/", async (req, res) => {
 });
 
 router.patch("/:issue_id", async (req, res) => {
-  const issue_id = req.params.issue_id;
+  const { issue_id } = req.params;
   const { priority_id, status_id, title, description } = req.body;
+
+  if (!issue_id.match(regex)) {
+    return res.status(400).sendStatus(400);
+  }
 
   try {
     const result = await issues.retrieveById(issue_id);
     if (!result) {
-      return res.status(404).json({ message: "Issue ID not found" });
+      return res.status(404).json({ message: "Issue ID is not found" });
     }
     await issues.updateIssue(
       priority_id,
@@ -88,7 +106,11 @@ router.patch("/:issue_id", async (req, res) => {
 });
 
 router.delete("/:issue_id", async (req, res) => {
-  const issue_id = req.params.issue_id;
+  const { issue_id } = req.params;
+
+  if (!issue_id.match(regex)) {
+    return res.status(400).sendStatus(400);
+  }
 
   try {
     const result = await issues.retrieveById(issue_id);

@@ -1,7 +1,8 @@
 const express = require("express");
-const users = require("../database/models/users");
 const humps = require("humps");
 const bcrypt = require("bcrypt");
+const users = require("../database/models/users");
+const regex = require("../utils/regex");
 
 const router = express.Router();
 
@@ -16,6 +17,11 @@ router.get("/", async (req, res) => {
 
 router.get("/user_id/:user_id", async (req, res) => {
   const user_id = req.params.user_id;
+
+  if (!user_id.match(regex)) {
+    return res.status(400).sendStatus(400);
+  }
+
   try {
     const result = await users.retrieveById(user_id);
     if (!result) {

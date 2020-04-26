@@ -1,6 +1,7 @@
 const express = require("express");
-const roles = require("../database/models/roles");
 const humps = require("humps");
+const roles = require("../database/models/roles");
+const regex = require("../utils/regex");
 
 const router = express.Router();
 
@@ -14,11 +15,16 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:role_id", async (req, res) => {
-  const role_id = req.params.role_id;
+  const { role_id } = req.params;
+
+  if (!role_id.match(regex)) {
+    return res.status(400).sendStatus(400);
+  }
+
   try {
     const result = await roles.retrieveById(role_id);
     if (!result) {
-      return res.status(404).sendStatus(404);
+      return res.status(404).json({ message: "Role ID is not found" });
     }
     res.status(200).json(humps.camelizeKeys(result));
   } catch (err) {

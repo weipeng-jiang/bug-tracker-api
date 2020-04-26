@@ -11,7 +11,7 @@ roles.retrieveAll = () => {
   });
 };
 
-roles.retrieveById = role_id => {
+roles.retrieveById = (role_id) => {
   return new Promise((resolve, reject) => {
     db.query(
       `SELECT * FROM roles WHERE role_id=$1`,

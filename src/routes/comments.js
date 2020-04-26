@@ -1,6 +1,7 @@
 const express = require("express");
-const comments = require("../database/models/comments");
 const humps = require("humps");
+const comments = require("../database/models/comments");
+const regex = require("../utils/regex");
 
 const router = express.Router();
 
@@ -14,7 +15,12 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:comment_id", async (req, res) => {
-  const comment_id = req.params.comment_id;
+  const { comment_id } = req.params;
+
+  if (!comment_id.match(regex)) {
+    return res.status(400).sendStatus(400);
+  }
+
   try {
     const result = await comments.retrieveByCommentId(comment_id);
     if (!result) {
@@ -29,8 +35,15 @@ router.get("/:comment_id", async (req, res) => {
 router.get("/issue/:issue_id", async (req, res) => {
   const { issue_id } = req.params;
 
+  if (!issue_id.match(regex)) {
+    return res.status(400).sendStatus(400);
+  }
+
   try {
     const result = await comments.retrieveCommentsByIssueId(issue_id);
+    if (result.length == 0) {
+      return res.status(404).json({ message: "Issue ID is not found" });
+    }
     res.status(200).json(humps.camelizeKeys(result));
   } catch (err) {
     res.status(400).sendStatus(400);
@@ -57,10 +70,14 @@ router.patch("/:comment_id", async (req, res) => {
   const { description } = req.body;
   const comment_id = req.params.comment_id;
 
+  if (!comment_id.match(regex)) {
+    return res.status(400).sendStatus(400);
+  }
+
   try {
     const foundId = await comments.retrieveByCommentId(comment_id);
     if (!foundId) {
-      return res.status(404).json({ message: "Comment ID not found" });
+      return res.status(404).json({ message: "Comment ID is not found" });
     }
     await comments.updateComment(
       description,
@@ -77,6 +94,10 @@ router.patch("/:comment_id", async (req, res) => {
 
 router.delete("/:comment_id", async (req, res) => {
   const comment_id = req.params.comment_id;
+
+  if (!comment_id.match(regex)) {
+    return res.status(400).sendStatus(400);
+  }
 
   try {
     const result = await comments.retrieveByCommentId(comment_id);

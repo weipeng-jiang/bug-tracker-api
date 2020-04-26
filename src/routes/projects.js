@@ -1,6 +1,7 @@
 const express = require("express");
-const projects = require("../database/models/projects");
 const humps = require("humps");
+const projects = require("../database/models/projects");
+const regex = require("../utils/regex");
 
 const router = express.Router();
 
@@ -14,11 +15,16 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:project_id", async (req, res) => {
-  const project_id = req.params.project_id;
+  const { project_id } = req.params;
+
+  if (!project_id.match(regex)) {
+    return res.status(400).sendStatus(400);
+  }
+
   try {
     const result = await projects.retrieveById(project_id);
     if (!result) {
-      return res.status(404).sendStatus(404);
+      return res.status(404).json({ message: "Project ID is not found" });
     }
     res.status(200).json(humps.camelizeKeys(result));
   } catch (err) {
@@ -27,10 +33,14 @@ router.get("/:project_id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { project_name, description, date_created } = req.body;
+  const { project_name, description } = req.body;
 
   try {
-    await projects.createNewProject(project_name, description, date_created);
+    await projects.createNewProject(
+      project_name,
+      description,
+      new Date().toUTCString()
+    );
     res.status(201).sendStatus(201);
   } catch (err) {
     res.status(400).sendStatus(400);
@@ -39,12 +49,16 @@ router.post("/", async (req, res) => {
 
 router.patch("/:project_id", async (req, res) => {
   const { project_name, description } = req.body;
-  const project_id = req.params.project_id;
+  const { project_id } = req.params;
+
+  if (!project_id.match(regex)) {
+    return res.status(400).sendStatus(400);
+  }
 
   try {
     const foundId = await projects.retrieveById(project_id);
     if (!foundId) {
-      return res.status(404).json({ message: "Project ID not found" });
+      return res.status(404).json({ message: "Project ID is not found" });
     }
     await projects.updateProject(project_name, description, project_id);
     res
@@ -56,7 +70,12 @@ router.patch("/:project_id", async (req, res) => {
 });
 
 router.delete("/:project_id", async (req, res) => {
-  const project_id = req.params.project_id;
+  const { project_id } = req.params;
+
+  if (!project_id.match(regex)) {
+    return res.status(400).sendStatus(400);
+  }
+
   try {
     const result = await projects.retrieveById(project_id);
     if (!result) {

@@ -1,6 +1,7 @@
 const express = require("express");
-const priority = require("../database/models/priority");
 const humps = require("humps");
+const priority = require("../database/models/priority");
+const regex = require("../utils/regex");
 
 const router = express.Router();
 
@@ -14,7 +15,12 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:priority_id", async (req, res) => {
-  const priority_id = req.params.priority_id;
+  const { priority_id } = req.params;
+
+  if (!priority_id.match(regex)) {
+    return res.status(400).sendStatus(400);
+  }
+
   try {
     const result = await priority.retrieveById(priority_id);
     if (!result) {

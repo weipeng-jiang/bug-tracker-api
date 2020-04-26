@@ -1,6 +1,7 @@
 const express = require("express");
-const userIssues = require("../database/models/userIssues");
 const humps = require("humps");
+const userIssues = require("../database/models/userIssues");
+const regex = require("../utils/regex");
 
 const router = express.Router();
 
@@ -14,12 +15,16 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/user/:user_id", async (req, res) => {
-  const user_id = req.params.user_id;
+  const { user_id } = req.params;
+
+  if (!user_id.match(regex)) {
+    return res.status(400).sendStatus(400);
+  }
 
   try {
     const result = await userIssues.retrieveByUserId(user_id);
     if (result.length == 0) {
-      return res.status(404).json({ message: "User ID not found" });
+      return res.status(404).json({ message: "User ID is not found" });
     }
     res.status(200).json(humps.camelizeKeys(result));
   } catch (err) {
@@ -28,12 +33,16 @@ router.get("/user/:user_id", async (req, res) => {
 });
 
 router.get("/issue/:issue_id", async (req, res) => {
-  const issue_id = req.params.issue_id;
+  const { issue_id } = req.params;
+
+  if (!issue_id.match(regex)) {
+    return res.status(400).sendStatus(400);
+  }
 
   try {
     const result = await userIssues.retrieveByIssueId(issue_id);
     if (result.length == 0) {
-      return res.status(404).json({ message: "Issue ID not found" });
+      return res.status(404).json({ message: "Issue ID is not found" });
     }
     res.status(200).json(humps.camelizeKeys(result));
   } catch (err) {
@@ -44,10 +53,16 @@ router.get("/issue/:issue_id", async (req, res) => {
 router.get("/:user_id/:issue_id", async (req, res) => {
   const { user_id, issue_id } = req.params;
 
+  if (!user_id.match(regex) || !issue_id.match(regex)) {
+    return res.status(400).sendStatus(400);
+  }
+
   try {
     const result = await userIssues.retrieveByUserAndIssueId(user_id, issue_id);
     if (result.length == 0) {
-      return res.status(404).json({ message: "User ID or Issue ID not found" });
+      return res
+        .status(404)
+        .json({ message: "User ID or Issue ID is not found" });
     }
     res.status(200).json(humps.camelizeKeys(result));
   } catch (err) {
@@ -69,10 +84,14 @@ router.post("/", async (req, res) => {
 router.delete("/:user_id/:issue_id", async (req, res) => {
   const { user_id, issue_id } = req.params;
 
+  if (!user_id.match(regex) || !issue_id.match(regex)) {
+    return res.status(400).sendStatus(400);
+  }
+
   try {
     const result = await userIssues.retrieveByUserAndIssueId(user_id, issue_id);
     if (!result) {
-      return res.status(404).json({ message: "Assignee is not found" });
+      return res.status(404).json({ message: "User or issue is not found" });
     }
     await userIssues.removeUserFromIssue(user_id, issue_id);
     res.status(200).sendStatus(200);

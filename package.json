@@ -17,6 +17,7 @@
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "babel-loader": "^8.1.0",
+    "dotenv": "^8.2.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.1",
     "eslint-plugin-node": "^11.1.0",
@@ -30,8 +31,8 @@
   },
   "scripts": {
     "start": "node src/server.js",
-    "dev": "nodemon src/server.js",
-    "test": "jest --detectOpenHandles --forceExit",
+    "dev": "nodemon -r dotenv/config src/server.js",
+    "test": "jest --silent --detectOpenHandles --forceExit",
     "pre-commit": "lint-staged"
   },
   "lint-staged": {

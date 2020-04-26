@@ -4,13 +4,16 @@ GET http://localhost:3001/api/issues
 GET http://localhost:3001/api/issues/19
 
 ###
+GET http://localhost:3001/api/issues/projects/5
+
+###
 POST http://localhost:3001/api/issues/
 Content-Type: application/json
 
 {
   "project_id":"6",
   "priority_id":"00",
-  "user_id":"12",
+  "user_id":"5",
   "status_id":"1",
   "title":"dligfdhkdfgfhkdf",
   "description":"data security breach",
