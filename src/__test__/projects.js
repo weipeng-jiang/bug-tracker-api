@@ -1,16 +1,27 @@
 const request = require("supertest");
 const app = require("../app");
+const token = require("../utils/token");
 
 describe("Testing the projects endpoints", () => {
-  it("Should return 200 and all projects", async (done) => {
+  it("Should return 401 because of no token", async (done) => {
     const response = await request(app).get("/api/projects");
+    expect(response.status).toBe(401);
+    done();
+  });
+
+  it("Should return 200 and all projects", async (done) => {
+    const response = await request(app)
+      .get("/api/projects")
+      .set("Authorization", "bearer " + token);
     expect(response.status).toBe(200);
     expect(response.body).not.toBe(null);
     done();
   });
 
   it("Should return 200 and a project", async (done) => {
-    const response = await request(app).get("/api/projects/6");
+    const response = await request(app)
+      .get("/api/projects/6")
+      .set("Authorization", "bearer " + token);
     expect(response.status).toBe(200);
     expect(response.body).not.toBe(null);
     done();
@@ -20,57 +31,74 @@ describe("Testing the projects endpoints", () => {
     const expectedResult = {
       message: "Project ID is not found",
     };
-    const response = await request(app).get("/api/projects/1000");
+    const response = await request(app)
+      .get("/api/projects/1000")
+      .set("Authorization", "bearer " + token);
     expect(response.status).toBe(404);
     expect(response.body).toEqual(expectedResult);
     done();
   });
 
   it("Should return 400 for bad parameters", async (done) => {
-    const response = await request(app).get("/api/projects/abc");
+    const response = await request(app)
+      .get("/api/projects/abc")
+      .set("Authorization", "bearer " + token);
     expect(response.status).toBe(400);
     expect(response.body).toEqual({});
     done();
   });
 
   it("Should return 400 for bad parameters", async (done) => {
-    const response = await request(app).get("/api/projects/abc12461");
+    const response = await request(app)
+      .get("/api/projects/abc12461")
+      .set("Authorization", "bearer " + token);
     expect(response.status).toBe(400);
     expect(response.body).toEqual({});
     done();
   });
 
   it("Should return 400 for bad parameters", async (done) => {
-    const response = await request(app).get("/api/projects/*&@Y@@(*&(");
+    const response = await request(app)
+      .get("/api/projects/*&@Y@@(*&(")
+      .set("Authorization", "bearer " + token);
     expect(response.status).toBe(400);
     expect(response.body).toEqual({});
     done();
   });
 
   it("Should return 201 for successful post", async (done) => {
-    const response = await request(app).post("/api/projects/").send({
-      project_name: "hello",
-      description: "hello world",
-    });
+    const response = await request(app)
+      .post("/api/projects/")
+      .set("Authorization", "bearer " + token)
+      .send({
+        project_name: "hello",
+        description: "hello world",
+      });
     expect(response.status).toBe(201);
     expect(response.body).toEqual({});
     done();
   });
 
   it("Should return 400 for bad parameters", async (done) => {
-    const response = await request(app).post("/api/projects/").send({
-      description: "hello world",
-    });
+    const response = await request(app)
+      .post("/api/projects/")
+      .set("Authorization", "bearer " + token)
+      .send({
+        description: "hello world",
+      });
     expect(response.status).toBe(400);
     expect(response.body).toEqual({});
     done();
   });
 
   it("Should return 200 for successful patch", async (done) => {
-    const response = await request(app).patch("/api/projects/6").send({
-      project_name: "hello3",
-      description: "hello world3",
-    });
+    const response = await request(app)
+      .patch("/api/projects/6")
+      .set("Authorization", "bearer " + token)
+      .send({
+        project_name: "hello3",
+        description: "hello world3",
+      });
     expect(response.status).toBe(200);
     expect(response.body).not.toBe(null);
     done();
@@ -80,17 +108,23 @@ describe("Testing the projects endpoints", () => {
     const expectedResult = {
       message: "Project ID is not found",
     };
-    const response = await request(app).patch("/api/projects/1000").send({
-      project_name: "hello3",
-      description: "hello world3",
-    });
+    const response = await request(app)
+      .patch("/api/projects/1000")
+      .set("Authorization", "bearer " + token)
+      .send({
+        project_name: "hello3",
+        description: "hello world3",
+      });
     expect(response.status).toBe(404);
     expect(response.body).toEqual(expectedResult);
     done();
   });
 
   it("Should return 400 for bad parameters", async (done) => {
-    const response = await request(app).patch("/api/projects/6").send({});
+    const response = await request(app)
+      .patch("/api/projects/6")
+      .set("Authorization", "bearer " + token)
+      .send({});
     expect(response.status).toBe(400);
     expect(response.body).toEqual({});
     done();
