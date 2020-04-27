@@ -18,7 +18,7 @@ module.exports = describe("Testing the priority endpoints", () => {
     done();
   });
 
-  it("Should return 200 and a priority", async (done) => {
+  it("Should return 200 and one priority", async (done) => {
     const response = await request(app)
       .get("/api/priority/11")
       .set("Authorization", `bearer ${token}`);

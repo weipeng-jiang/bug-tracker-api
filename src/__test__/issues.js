@@ -18,7 +18,7 @@ module.exports = describe("Testing the issues endpoints", () => {
     done();
   });
 
-  it("Should return 200 and an issue", async (done) => {
+  it("Should return 200 and one issue", async (done) => {
     const response = await request(app)
       .get("/api/issues/1")
       .set("Authorization", `bearer ${token}`);

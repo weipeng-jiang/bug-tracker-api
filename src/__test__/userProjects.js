@@ -80,7 +80,7 @@ module.exports = describe("Testing the userProjects endpoints", () => {
     done();
   });
 
-  it("Should return 200 and a userProject", async (done) => {
+  it("Should return 200 and one userProject", async (done) => {
     const response = await request(app)
       .get("/api/userProjects/5/6")
       .set("Authorization", `bearer ${token}`);

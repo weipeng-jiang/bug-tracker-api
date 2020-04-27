@@ -18,7 +18,7 @@ module.exports = describe("Testing the comments endpoints", () => {
     done();
   });
 
-  it("Should return 200 and a comment", async (done) => {
+  it("Should return 200 and one comment", async (done) => {
     const response = await request(app)
       .get("/api/comments/14")
       .set("Authorization", `bearer ${token}`);

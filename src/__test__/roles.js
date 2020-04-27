@@ -18,7 +18,7 @@ module.exports = describe("Testing the roles endpoints", () => {
     done();
   });
 
-  it("Should return 200 and a role", async (done) => {
+  it("Should return 200 and one role", async (done) => {
     const response = await request(app)
       .get("/api/roles/1")
       .set("Authorization", `bearer ${token}`);
