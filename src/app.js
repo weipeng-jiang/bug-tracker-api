@@ -40,6 +40,7 @@ app.use("/api/issues", require("./routes/issues"));
 app.use("/api/comments", require("./routes/comments"));
 app.use("/api/userProjects", require("./routes/userProjects"));
 app.use("/api/userIssues", require("./routes/userIssues"));
+app.use("/api/types", require("./routes/types"));
 
 // app.use("/api/userIssues", checkJwt, require("./routes/userIssues"));
 
