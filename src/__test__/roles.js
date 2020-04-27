@@ -12,7 +12,7 @@ module.exports = describe("Testing the roles endpoints", () => {
   it("Should return 200 and all roles", async (done) => {
     const response = await request(app)
       .get("/api/roles")
-      .set("Authorization", "bearer " + token);
+      .set("Authorization", `bearer ${token}`);
     expect(response.status).toBe(200);
     expect(response.body).not.toBe(null);
     done();
@@ -21,7 +21,7 @@ module.exports = describe("Testing the roles endpoints", () => {
   it("Should return 200 and a role", async (done) => {
     const response = await request(app)
       .get("/api/roles/1")
-      .set("Authorization", "bearer " + token);
+      .set("Authorization", `bearer ${token}`);
     expect(response.status).toBe(200);
     expect(response.body).not.toBe(null);
     done();
@@ -33,7 +33,7 @@ module.exports = describe("Testing the roles endpoints", () => {
     };
     const response = await request(app)
       .get("/api/roles/1000")
-      .set("Authorization", "bearer " + token);
+      .set("Authorization", `bearer ${token}`);
     expect(response.status).toBe(404);
     expect(response.body).toEqual(expectedResult);
     done();
@@ -42,7 +42,7 @@ module.exports = describe("Testing the roles endpoints", () => {
   it("Should return 400 for bad parameters", async (done) => {
     const response = await request(app)
       .get("/api/roles/abc")
-      .set("Authorization", "bearer " + token);
+      .set("Authorization", `bearer ${token}`);
     expect(response.status).toBe(400);
     expect(response.body).toEqual({});
     done();
@@ -51,7 +51,7 @@ module.exports = describe("Testing the roles endpoints", () => {
   it("Should return 400 for bad parameters", async (done) => {
     const response = await request(app)
       .get("/api/roles/iawub31243fdd1")
-      .set("Authorization", "bearer " + token);
+      .set("Authorization", `bearer ${token}`);
     expect(response.status).toBe(400);
     expect(response.body).toEqual({});
     done();
@@ -60,7 +60,7 @@ module.exports = describe("Testing the roles endpoints", () => {
   it("Should return 400 for bad parameters", async (done) => {
     const response = await request(app)
       .get("/api/roles/(&*Y(#HJFF#2132))")
-      .set("Authorization", "bearer " + token);
+      .set("Authorization", `bearer ${token}`);
     expect(response.status).toBe(400);
     expect(response.body).toEqual({});
     done();

@@ -12,7 +12,7 @@ module.exports = describe("Testing the status endpoints", () => {
   it("Should return 200 and all statuses", async (done) => {
     const response = await request(app)
       .get("/api/status")
-      .set("Authorization", "bearer " + token);
+      .set("Authorization", `bearer ${token}`);
     expect(response.status).toBe(200);
     expect(response.body).not.toBe(null);
     done();
@@ -21,7 +21,7 @@ module.exports = describe("Testing the status endpoints", () => {
   it("Should return 200 and a status", async (done) => {
     const response = await request(app)
       .get("/api/status/0")
-      .set("Authorization", "bearer " + token);
+      .set("Authorization", `bearer ${token}`);
     expect(response.status).toBe(200);
     expect(response.body).not.toBe(null);
     done();
@@ -33,7 +33,7 @@ module.exports = describe("Testing the status endpoints", () => {
     };
     const response = await request(app)
       .get("/api/status/111")
-      .set("Authorization", "bearer " + token);
+      .set("Authorization", `bearer ${token}`);
     expect(response.status).toBe(404);
     expect(response.body).toEqual(expectedResult);
     done();
@@ -42,7 +42,7 @@ module.exports = describe("Testing the status endpoints", () => {
   it("Should return 400 for bad parameter", async (done) => {
     const response = await request(app)
       .get("/api/status/abc")
-      .set("Authorization", "bearer " + token);
+      .set("Authorization", `bearer ${token}`);
     expect(response.status).toBe(400);
     expect(response.body).toEqual({});
     done();
@@ -51,7 +51,7 @@ module.exports = describe("Testing the status endpoints", () => {
   it("Should return 400 for bad parameter", async (done) => {
     const response = await request(app)
       .get("/api/status/abc123dqfwe21")
-      .set("Authorization", "bearer " + token);
+      .set("Authorization", `bearer ${token}`);
     expect(response.status).toBe(400);
     expect(response.body).toEqual({});
     done();
@@ -60,7 +60,7 @@ module.exports = describe("Testing the status endpoints", () => {
   it("Should return 400 for bad parameter", async (done) => {
     const response = await request(app)
       .get("/api/status/d32*&GGD#93gd9")
-      .set("Authorization", "bearer " + token);
+      .set("Authorization", `bearer ${token}`);
     expect(response.status).toBe(400);
     expect(response.body).toEqual({});
     done();

@@ -12,7 +12,7 @@ module.exports = describe("Testing the issues endpoints", () => {
   it("Should return 200 and all issues", async (done) => {
     const response = await request(app)
       .get("/api/issues")
-      .set("Authorization", "bearer " + token);
+      .set("Authorization", `bearer ${token}`);
     expect(response.status).toBe(200);
     expect(response.body).not.toBe(null);
     done();
@@ -21,7 +21,7 @@ module.exports = describe("Testing the issues endpoints", () => {
   it("Should return 200 and an issue", async (done) => {
     const response = await request(app)
       .get("/api/issues/1")
-      .set("Authorization", "bearer " + token);
+      .set("Authorization", `bearer ${token}`);
     expect(response.status).toBe(200);
     expect(response.body).not.toBe(null);
     done();
@@ -33,7 +33,7 @@ module.exports = describe("Testing the issues endpoints", () => {
     };
     const response = await request(app)
       .get("/api/issues/1000")
-      .set("Authorization", "bearer " + token);
+      .set("Authorization", `bearer ${token}`);
     expect(response.status).toBe(404);
     expect(response.body).toEqual(expectedResult);
     done();
@@ -42,7 +42,7 @@ module.exports = describe("Testing the issues endpoints", () => {
   it("Should return 400 for bad parameters", async (done) => {
     const response = await request(app)
       .get("/api/issues/abc")
-      .set("Authorization", "bearer " + token);
+      .set("Authorization", `bearer ${token}`);
     expect(response.status).toBe(400);
     expect(response.body).toEqual({});
     done();
@@ -51,7 +51,7 @@ module.exports = describe("Testing the issues endpoints", () => {
   it("Should return 400 for bad parameters", async (done) => {
     const response = await request(app)
       .get("/api/issues/sadfag212313")
-      .set("Authorization", "bearer " + token);
+      .set("Authorization", `bearer ${token}`);
     expect(response.status).toBe(400);
     expect(response.body).toEqual({});
     done();
@@ -60,7 +60,7 @@ module.exports = describe("Testing the issues endpoints", () => {
   it("Should return 400 for bad parameters", async (done) => {
     const response = await request(app)
       .get("/api/issues/&*(Y(#(*")
-      .set("Authorization", "bearer " + token);
+      .set("Authorization", `bearer ${token}`);
     expect(response.status).toBe(400);
     expect(response.body).toEqual({});
     done();
@@ -69,7 +69,7 @@ module.exports = describe("Testing the issues endpoints", () => {
   it("Should return 200 and all issues with specified project id", async (done) => {
     const response = await request(app)
       .get("/api/issues/projects/5")
-      .set("Authorization", "bearer " + token);
+      .set("Authorization", `bearer ${token}`);
     expect(response.status).toBe(200);
     expect(response.body.length).not.toBe(0);
     done();
@@ -81,7 +81,7 @@ module.exports = describe("Testing the issues endpoints", () => {
     };
     const response = await request(app)
       .get("/api/issues/projects/1000")
-      .set("Authorization", "bearer " + token);
+      .set("Authorization", `bearer ${token}`);
     expect(response.status).toBe(404);
     expect(response.body).toEqual(expectedResult);
     done();
@@ -90,7 +90,7 @@ module.exports = describe("Testing the issues endpoints", () => {
   it("Should return 400 for bad parameters", async (done) => {
     const response = await request(app)
       .get("/api/issues/projects/abc")
-      .set("Authorization", "bearer " + token);
+      .set("Authorization", `bearer ${token}`);
     expect(response.status).toBe(400);
     expect(response.body).toEqual({});
     done();
@@ -99,7 +99,7 @@ module.exports = describe("Testing the issues endpoints", () => {
   it("Should return 400 for bad parameters", async (done) => {
     const response = await request(app)
       .get("/api/issues/projects/abc21351")
-      .set("Authorization", "bearer " + token);
+      .set("Authorization", `bearer ${token}`);
     expect(response.status).toBe(400);
     expect(response.body).toEqual({});
     done();
@@ -108,7 +108,7 @@ module.exports = describe("Testing the issues endpoints", () => {
   it("Should return 400 for bad parameters", async (done) => {
     const response = await request(app)
       .get("/api/issues/projects/*&##*(#")
-      .set("Authorization", "bearer " + token);
+      .set("Authorization", `bearer ${token}`);
     expect(response.status).toBe(400);
     expect(response.body).toEqual({});
     done();
@@ -117,7 +117,7 @@ module.exports = describe("Testing the issues endpoints", () => {
   it("Should return 201 for successful post", async (done) => {
     const response = await request(app)
       .post("/api/issues/")
-      .set("Authorization", "bearer " + token)
+      .set("Authorization", `bearer ${token}`)
       .send({
         project_id: "6",
         priority_id: "00",
@@ -135,7 +135,7 @@ module.exports = describe("Testing the issues endpoints", () => {
   it("Should return 400 for bad parameters", async (done) => {
     const response = await request(app)
       .post("/api/issues/")
-      .set("Authorization", "bearer " + token)
+      .set("Authorization", `bearer ${token}`)
       .send({
         project_id: "6",
         priority_id: "00",
@@ -151,7 +151,7 @@ module.exports = describe("Testing the issues endpoints", () => {
   it("Should return 200 for successful patch", async (done) => {
     const response = await request(app)
       .patch("/api/issues/1")
-      .set("Authorization", "bearer " + token)
+      .set("Authorization", `bearer ${token}`)
       .send({
         priority_id: "00",
         status_id: "1",
@@ -169,7 +169,7 @@ module.exports = describe("Testing the issues endpoints", () => {
     };
     const response = await request(app)
       .patch("/api/issues/1000")
-      .set("Authorization", "bearer " + token)
+      .set("Authorization", `bearer ${token}`)
       .send({
         priority_id: "00",
         status_id: "1",
@@ -184,7 +184,7 @@ module.exports = describe("Testing the issues endpoints", () => {
   it("Should return 400 for bad parameters", async (done) => {
     const response = await request(app)
       .patch("/api/issues/1")
-      .set("Authorization", "bearer " + token)
+      .set("Authorization", `bearer ${token}`)
       .send({});
     expect(response.status).toBe(400);
     expect(response.body).toEqual({});
