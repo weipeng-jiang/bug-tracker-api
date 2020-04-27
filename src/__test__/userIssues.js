@@ -2,7 +2,7 @@ const request = require("supertest");
 const app = require("../app");
 const token = require("../utils/token");
 
-describe("Testing the userIssues endpoints", () => {
+module.exports = describe("Testing the userIssues endpoints", () => {
   it("Should return 401 because of no token", async (done) => {
     const response = await request(app).get("/api/userIssues");
     expect(response.status).toBe(401);
