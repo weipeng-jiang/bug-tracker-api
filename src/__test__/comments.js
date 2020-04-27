@@ -27,7 +27,7 @@ module.exports = describe("Testing the comments endpoints", () => {
     done();
   });
 
-  it("Should return 404 when comment doesn't exist", async (done) => {
+  it("Should return 404 when comment ID doesn't exist", async (done) => {
     const expectedResult = {
       message: "Comment ID is not found",
     };
@@ -39,7 +39,7 @@ module.exports = describe("Testing the comments endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameters", async (done) => {
+  it("Should return 400 for bad parameters; characters", async (done) => {
     const response = await request(app)
       .get("/api/comments/abc")
       .set("Authorization", `bearer ${token}`);
@@ -48,7 +48,7 @@ module.exports = describe("Testing the comments endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameters", async (done) => {
+  it("Should return 400 for bad parameters; characters and numbers", async (done) => {
     const response = await request(app)
       .get("/api/comments/abc213")
       .set("Authorization", `bearer ${token}`);
@@ -57,7 +57,7 @@ module.exports = describe("Testing the comments endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameters", async (done) => {
+  it("Should return 400 for bad parameters; punctuation", async (done) => {
     const response = await request(app)
       .get("/api/comments/%#$##--aw123")
       .set("Authorization", `bearer ${token}`);
@@ -66,7 +66,7 @@ module.exports = describe("Testing the comments endpoints", () => {
     done();
   });
 
-  it("Should return 200 and all comments with specified id number", async (done) => {
+  it("Should return 200 and all comments with specified issue id number", async (done) => {
     const response = await request(app)
       .get("/api/comments/issue/1")
       .set("Authorization", `bearer ${token}`);
@@ -88,7 +88,7 @@ module.exports = describe("Testing the comments endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameters", async (done) => {
+  it("Should return 400 for bad parameters; characters", async (done) => {
     const response = await request(app)
       .get("/api/comments/issue/abc")
       .set("Authorization", `bearer ${token}`);
@@ -97,7 +97,7 @@ module.exports = describe("Testing the comments endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameters", async (done) => {
+  it("Should return 400 for bad parameters; characters and numbers", async (done) => {
     const response = await request(app)
       .get("/api/comments/issue/abc21345151")
       .set("Authorization", `bearer ${token}`);
@@ -106,7 +106,7 @@ module.exports = describe("Testing the comments endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameters", async (done) => {
+  it("Should return 400 for bad parameters; punctuation", async (done) => {
     const response = await request(app)
       .get("/api/comments/issue/(*&$#(*&))")
       .set("Authorization", `bearer ${token}`);
@@ -129,7 +129,7 @@ module.exports = describe("Testing the comments endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameters", async (done) => {
+  it("Should return 400 for bad parameters; no issue ID", async (done) => {
     const response = await request(app)
       .post("/api/comments/")
       .set("Authorization", `bearer ${token}`)
@@ -154,7 +154,7 @@ module.exports = describe("Testing the comments endpoints", () => {
     done();
   });
 
-  it("Should return 404 for comment not found", async (done) => {
+  it("Should return 404 when comment ID is not found", async (done) => {
     const expectedResult = {
       message: "Comment ID is not found",
     };
@@ -169,7 +169,7 @@ module.exports = describe("Testing the comments endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameters", async (done) => {
+  it("Should return 400 for bad parameters; no description in body", async (done) => {
     const response = await request(app)
       .patch("/api/comments/14")
       .set("Authorization", `bearer ${token}`)

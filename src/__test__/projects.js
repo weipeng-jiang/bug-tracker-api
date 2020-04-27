@@ -39,7 +39,7 @@ module.exports = describe("Testing the projects endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameters", async (done) => {
+  it("Should return 400 for bad parameters; characters", async (done) => {
     const response = await request(app)
       .get("/api/projects/abc")
       .set("Authorization", `bearer ${token}`);
@@ -48,7 +48,7 @@ module.exports = describe("Testing the projects endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameters", async (done) => {
+  it("Should return 400 for bad parameters; characters and numbers", async (done) => {
     const response = await request(app)
       .get("/api/projects/abc12461")
       .set("Authorization", `bearer ${token}`);
@@ -57,7 +57,7 @@ module.exports = describe("Testing the projects endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameters", async (done) => {
+  it("Should return 400 for bad parameters; punctuation", async (done) => {
     const response = await request(app)
       .get("/api/projects/*&@Y@@(*&(")
       .set("Authorization", `bearer ${token}`);
@@ -79,7 +79,7 @@ module.exports = describe("Testing the projects endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameters", async (done) => {
+  it("Should return 400 for bad parameters; no project name", async (done) => {
     const response = await request(app)
       .post("/api/projects/")
       .set("Authorization", `bearer ${token}`)
@@ -120,7 +120,7 @@ module.exports = describe("Testing the projects endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameters", async (done) => {
+  it("Should return 400 for bad parameters; no project name or description", async (done) => {
     const response = await request(app)
       .patch("/api/projects/6")
       .set("Authorization", `bearer ${token}`)

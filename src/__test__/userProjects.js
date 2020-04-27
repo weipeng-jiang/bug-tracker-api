@@ -18,7 +18,7 @@ module.exports = describe("Testing the userProjects endpoints", () => {
     done();
   });
 
-  it("Should return 200 and users by specified user ID", async (done) => {
+  it("Should return 200 and all userProjects with specified user ID", async (done) => {
     const response = await request(app)
       .get("/api/userProjects/user/5")
       .set("Authorization", `bearer ${token}`);
@@ -40,7 +40,7 @@ module.exports = describe("Testing the userProjects endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameter", async (done) => {
+  it("Should return 400 for bad parameter; characters", async (done) => {
     const response = await request(app)
       .get("/api/userProjects/user/abc")
       .set("Authorization", `bearer ${token}`);
@@ -49,7 +49,7 @@ module.exports = describe("Testing the userProjects endpoints", () => {
     done();
   });
 
-  it("Should return 200 and all projects with specified project ID", async (done) => {
+  it("Should return 200 and all userProjects with specified project ID", async (done) => {
     const response = await request(app)
       .get("/api/userProjects/project/6")
       .set("Authorization", `bearer ${token}`);
@@ -71,7 +71,7 @@ module.exports = describe("Testing the userProjects endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameters", async (done) => {
+  it("Should return 400 for bad parameters; characters", async (done) => {
     const response = await request(app)
       .get("/api/userProjects/project/abc")
       .set("Authorization", `bearer ${token}`);
@@ -125,7 +125,7 @@ module.exports = describe("Testing the userProjects endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameter1", async (done) => {
+  it("Should return 400 for bad parameter; both characters", async (done) => {
     const response = await request(app)
       .get("/api/userProjects/abc/abc")
       .set("Authorization", `bearer ${token}`);
@@ -134,7 +134,7 @@ module.exports = describe("Testing the userProjects endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameter2", async (done) => {
+  it("Should return 400 for bad parameter; both characters and numbers", async (done) => {
     const response = await request(app)
       .get("/api/userProjects/abc1213/abc41223")
       .set("Authorization", `bearer ${token}`);
@@ -143,7 +143,7 @@ module.exports = describe("Testing the userProjects endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameter3", async (done) => {
+  it("Should return 400 for bad parameter; project parameter as characters and numbers", async (done) => {
     const response = await request(app)
       .get("/api/userProjects/5/abc41223")
       .set("Authorization", `bearer ${token}`);
@@ -152,7 +152,7 @@ module.exports = describe("Testing the userProjects endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameter4", async (done) => {
+  it("Should return 400 for bad parameter; user parameter as characters and numbers", async (done) => {
     const response = await request(app)
       .get("/api/userProjects/abc1213/6")
       .set("Authorization", `bearer ${token}`);
@@ -173,7 +173,7 @@ module.exports = describe("Testing the userProjects endpoints", () => {
   //   done();
   // });
 
-  it("Should return 400 for bad parameters5", async (done) => {
+  it("Should return 400 for bad parameters; no user or project ID", async (done) => {
     const response = await request(app)
       .post("/api/userProjects/")
       .set("Authorization", `bearer ${token}`)
@@ -232,7 +232,7 @@ module.exports = describe("Testing the userProjects endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameter6", async (done) => {
+  it("Should return 400 for bad parameter; both characters", async (done) => {
     const response = await request(app)
       .patch("/api/userProjects/abc/abc")
       .set("Authorization", `bearer ${token}`)
@@ -242,9 +242,9 @@ module.exports = describe("Testing the userProjects endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameter7", async (done) => {
+  it("Should return 400 for bad parameter; project parameter as characters and numbers", async (done) => {
     const response = await request(app)
-      .patch("/api/userProjects/abc/abc1234")
+      .patch("/api/userProjects/5/abc1234")
       .set("Authorization", `bearer ${token}`)
       .send({});
     expect(response.status).toBe(400);
@@ -252,7 +252,17 @@ module.exports = describe("Testing the userProjects endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameter8", async (done) => {
+  it("Should return 400 for bad parameter; user parameter as characters and numbers", async (done) => {
+    const response = await request(app)
+      .patch("/api/userProjects/abc1234/6")
+      .set("Authorization", `bearer ${token}`)
+      .send({});
+    expect(response.status).toBe(400);
+    expect(response.body).toEqual({});
+    done();
+  });
+
+  it("Should return 400 for bad parameter; both characters and numbers", async (done) => {
     const response = await request(app)
       .patch("/api/userProjects/abc312445/abc1234")
       .set("Authorization", `bearer ${token}`)

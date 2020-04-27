@@ -27,7 +27,7 @@ module.exports = describe("Testing the issues endpoints", () => {
     done();
   });
 
-  it("Should return 404 for issue not found", async (done) => {
+  it("Should return 404 for issue ID not found", async (done) => {
     const expectedResult = {
       message: "Issue ID is not found",
     };
@@ -39,7 +39,7 @@ module.exports = describe("Testing the issues endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameters", async (done) => {
+  it("Should return 400 for bad parameters; characters", async (done) => {
     const response = await request(app)
       .get("/api/issues/abc")
       .set("Authorization", `bearer ${token}`);
@@ -48,7 +48,7 @@ module.exports = describe("Testing the issues endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameters", async (done) => {
+  it("Should return 400 for bad parameters; characters and numbers", async (done) => {
     const response = await request(app)
       .get("/api/issues/sadfag212313")
       .set("Authorization", `bearer ${token}`);
@@ -57,7 +57,7 @@ module.exports = describe("Testing the issues endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameters", async (done) => {
+  it("Should return 400 for bad parameters; punctuation", async (done) => {
     const response = await request(app)
       .get("/api/issues/&*(Y(#(*")
       .set("Authorization", `bearer ${token}`);
@@ -87,7 +87,7 @@ module.exports = describe("Testing the issues endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameters", async (done) => {
+  it("Should return 400 for bad parameters; characters", async (done) => {
     const response = await request(app)
       .get("/api/issues/projects/abc")
       .set("Authorization", `bearer ${token}`);
@@ -96,7 +96,7 @@ module.exports = describe("Testing the issues endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameters", async (done) => {
+  it("Should return 400 for bad parameters; characters and numbers", async (done) => {
     const response = await request(app)
       .get("/api/issues/projects/abc21351")
       .set("Authorization", `bearer ${token}`);
@@ -105,7 +105,7 @@ module.exports = describe("Testing the issues endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameters", async (done) => {
+  it("Should return 400 for bad parameters; punctuation", async (done) => {
     const response = await request(app)
       .get("/api/issues/projects/*&##*(#")
       .set("Authorization", `bearer ${token}`);
@@ -132,7 +132,7 @@ module.exports = describe("Testing the issues endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameters", async (done) => {
+  it("Should return 400 for bad parameters; no status or user ID", async (done) => {
     const response = await request(app)
       .post("/api/issues/")
       .set("Authorization", `bearer ${token}`)
@@ -163,7 +163,7 @@ module.exports = describe("Testing the issues endpoints", () => {
     done();
   });
 
-  it("Should return 404 when issue doesn't exist", async (done) => {
+  it("Should return 404 when issue ID doesn't exist", async (done) => {
     const expectedResult = {
       message: "Issue ID is not found",
     };
@@ -181,7 +181,7 @@ module.exports = describe("Testing the issues endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameters", async (done) => {
+  it("Should return 400 for bad parameters; no parameters in body", async (done) => {
     const response = await request(app)
       .patch("/api/issues/1")
       .set("Authorization", `bearer ${token}`)

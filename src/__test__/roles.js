@@ -27,7 +27,7 @@ module.exports = describe("Testing the roles endpoints", () => {
     done();
   });
 
-  it("Should return 404 when role doesn't exist", async (done) => {
+  it("Should return 404 when role ID doesn't exist", async (done) => {
     const expectedResult = {
       message: "Role ID is not found",
     };
@@ -39,7 +39,7 @@ module.exports = describe("Testing the roles endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameters", async (done) => {
+  it("Should return 400 for bad parameters; characters", async (done) => {
     const response = await request(app)
       .get("/api/roles/abc")
       .set("Authorization", `bearer ${token}`);
@@ -48,7 +48,7 @@ module.exports = describe("Testing the roles endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameters", async (done) => {
+  it("Should return 400 for bad parameters; characters and numbers", async (done) => {
     const response = await request(app)
       .get("/api/roles/iawub31243fdd1")
       .set("Authorization", `bearer ${token}`);
@@ -57,7 +57,7 @@ module.exports = describe("Testing the roles endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameters", async (done) => {
+  it("Should return 400 for bad parameters; punctuation", async (done) => {
     const response = await request(app)
       .get("/api/roles/(&*Y(#HJFF#2132))")
       .set("Authorization", `bearer ${token}`);

@@ -27,7 +27,7 @@ module.exports = describe("Testing the status endpoints", () => {
     done();
   });
 
-  it("Should return 404 when status doesn't exist", async (done) => {
+  it("Should return 404 when status ID doesn't exist", async (done) => {
     const expectedResult = {
       message: "Status ID is not found",
     };
@@ -39,7 +39,7 @@ module.exports = describe("Testing the status endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameter", async (done) => {
+  it("Should return 400 for bad parameter; characters", async (done) => {
     const response = await request(app)
       .get("/api/status/abc")
       .set("Authorization", `bearer ${token}`);
@@ -48,7 +48,7 @@ module.exports = describe("Testing the status endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameter", async (done) => {
+  it("Should return 400 for bad parameter; characters and numbers", async (done) => {
     const response = await request(app)
       .get("/api/status/abc123dqfwe21")
       .set("Authorization", `bearer ${token}`);
@@ -57,7 +57,7 @@ module.exports = describe("Testing the status endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameter", async (done) => {
+  it("Should return 400 for bad parameter; punctuation", async (done) => {
     const response = await request(app)
       .get("/api/status/d32*&GGD#93gd9")
       .set("Authorization", `bearer ${token}`);

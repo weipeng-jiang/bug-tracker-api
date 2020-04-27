@@ -40,7 +40,7 @@ module.exports = describe("Testing the userIssues endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameter", async (done) => {
+  it("Should return 400 for bad parameter; characters", async (done) => {
     const response = await request(app)
       .get("/api/userIssues/user/abc")
       .set("Authorization", `bearer ${token}`);
@@ -49,7 +49,7 @@ module.exports = describe("Testing the userIssues endpoints", () => {
     done();
   });
 
-  it("Should return 200 and all issues with specified issue ID", async (done) => {
+  it("Should return 200 and all userIssues with specified issue ID", async (done) => {
     const response = await request(app)
       .get("/api/userIssues/issue/1")
       .set("Authorization", `bearer ${token}`);
@@ -71,7 +71,7 @@ module.exports = describe("Testing the userIssues endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameter", async (done) => {
+  it("Should return 400 for bad parameter; characters", async (done) => {
     const response = await request(app)
       .get("/api/userIssues/issue/abc")
       .set("Authorization", `bearer ${token}`);
@@ -101,7 +101,7 @@ module.exports = describe("Testing the userIssues endpoints", () => {
     done();
   });
 
-  it("Should return 404 when user ID doesn't exist", async (done) => {
+  it("Should return 404 when user ID is not found", async (done) => {
     const expectedResult = {
       message: "User ID or Issue ID is not found",
     };
@@ -113,7 +113,7 @@ module.exports = describe("Testing the userIssues endpoints", () => {
     done();
   });
 
-  it("Should return 404 when issue ID doesn't exist", async (done) => {
+  it("Should return 404 when issue ID is not found", async (done) => {
     const expectedResult = {
       message: "User ID or Issue ID is not found",
     };
@@ -125,7 +125,7 @@ module.exports = describe("Testing the userIssues endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameters", async (done) => {
+  it("Should return 400 for bad parameters; both characters", async (done) => {
     const response = await request(app)
       .get("/api/userIssues/abc/abc")
       .set("Authorization", `bearer ${token}`);
@@ -134,7 +134,7 @@ module.exports = describe("Testing the userIssues endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameters", async (done) => {
+  it("Should return 400 for bad parameters; issue ID parameter as characters", async (done) => {
     const response = await request(app)
       .get("/api/userIssues/5/abc")
       .set("Authorization", `bearer ${token}`);
@@ -143,7 +143,7 @@ module.exports = describe("Testing the userIssues endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameters", async (done) => {
+  it("Should return 400 for bad parameters; user ID parameter as characters", async (done) => {
     const response = await request(app)
       .get("/api/userIssues/abc/1")
       .set("Authorization", `bearer ${token}`);
@@ -152,7 +152,7 @@ module.exports = describe("Testing the userIssues endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameters", async (done) => {
+  it("Should return 400 for bad parameters; issue ID parameter as characters and numbers", async (done) => {
     const response = await request(app)
       .get("/api/userIssues/5/abc2131")
       .set("Authorization", `bearer ${token}`);
@@ -161,7 +161,7 @@ module.exports = describe("Testing the userIssues endpoints", () => {
     done();
   });
 
-  it("Should return 400 for bad parameters", async (done) => {
+  it("Should return 400 for bad parameters; user ID parameter as characters and numbers", async (done) => {
     const response = await request(app)
       .get("/api/userIssues/abc12356/1")
       .set("Authorization", `bearer ${token}`);
@@ -182,7 +182,7 @@ module.exports = describe("Testing the userIssues endpoints", () => {
   //   done();
   // });
 
-  it("Should return 400 for bad parameters", async (done) => {
+  it("Should return 400 for bad parameters; no user ID or issue ID", async (done) => {
     const response = await request(app)
       .post("/api/userIssues/")
       .set("Authorization", `bearer ${token}`)
