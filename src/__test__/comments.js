@@ -20,7 +20,7 @@ module.exports = describe("Testing the comments endpoints", () => {
 
   it("Should return 200 and one comment", async (done) => {
     const response = await request(app)
-      .get("/api/comments/14")
+      .get("/api/comments/186")
       .set("Authorization", `bearer ${token}`);
     expect(response.status).toBe(200);
     expect(response.body).not.toBe(null);
@@ -68,7 +68,7 @@ module.exports = describe("Testing the comments endpoints", () => {
 
   it("Should return 200 and all comments with specified issue id number", async (done) => {
     const response = await request(app)
-      .get("/api/comments/issue/1")
+      .get("/api/comments/issue/39")
       .set("Authorization", `bearer ${token}`);
     expect(response.status).toBe(200);
     expect(response.body.length).not.toBe(0);
@@ -120,7 +120,7 @@ module.exports = describe("Testing the comments endpoints", () => {
       .post("/api/comments/")
       .set("Authorization", `bearer ${token}`)
       .send({
-        issue_id: "1",
+        issue_id: "39",
         user_id: "5",
         description: "test issue",
       });
@@ -142,9 +142,9 @@ module.exports = describe("Testing the comments endpoints", () => {
     done();
   });
 
-  it("Should return 200 for sucessful patch", async (done) => {
+  it("Should return 200 for successful patch", async (done) => {
     const response = await request(app)
-      .patch("/api/comments/14")
+      .patch("/api/comments/186")
       .set("Authorization", `bearer ${token}`)
       .send({
         description: "test patch",
@@ -171,7 +171,7 @@ module.exports = describe("Testing the comments endpoints", () => {
 
   it("Should return 400 for bad parameters; no description in body", async (done) => {
     const response = await request(app)
-      .patch("/api/comments/14")
+      .patch("/api/comments/186")
       .set("Authorization", `bearer ${token}`)
       .send({});
     expect(response.status).toBe(400);

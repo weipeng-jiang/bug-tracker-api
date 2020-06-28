@@ -20,7 +20,7 @@ module.exports = describe("Testing the issues endpoints", () => {
 
   it("Should return 200 and one issue", async (done) => {
     const response = await request(app)
-      .get("/api/issues/1")
+      .get("/api/issues/89")
       .set("Authorization", `bearer ${token}`);
     expect(response.status).toBe(200);
     expect(response.body).not.toBe(null);
@@ -68,7 +68,7 @@ module.exports = describe("Testing the issues endpoints", () => {
 
   it("Should return 200 and all issues with specified project id", async (done) => {
     const response = await request(app)
-      .get("/api/issues/projects/5")
+      .get("/api/issues/projects/6")
       .set("Authorization", `bearer ${token}`);
     expect(response.status).toBe(200);
     expect(response.body.length).not.toBe(0);
@@ -150,7 +150,7 @@ module.exports = describe("Testing the issues endpoints", () => {
 
   it("Should return 200 for successful patch", async (done) => {
     const response = await request(app)
-      .patch("/api/issues/1")
+      .patch("/api/issues/89")
       .set("Authorization", `bearer ${token}`)
       .send({
         priority_id: "00",
@@ -183,7 +183,7 @@ module.exports = describe("Testing the issues endpoints", () => {
 
   it("Should return 400 for bad parameters; no parameters in body", async (done) => {
     const response = await request(app)
-      .patch("/api/issues/1")
+      .patch("/api/issues/89")
       .set("Authorization", `bearer ${token}`)
       .send({});
     expect(response.status).toBe(400);

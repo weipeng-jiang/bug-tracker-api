@@ -40,5 +40,6 @@ app.use("/api/issues", checkJwt, require("./routes/issues"));
 app.use("/api/comments", checkJwt, require("./routes/comments"));
 app.use("/api/userProjects", checkJwt, require("./routes/userProjects"));
 app.use("/api/userIssues", checkJwt, require("./routes/userIssues"));
+app.use("/api/types", checkJwt, require("./routes/types"));
 
 module.exports = app;
