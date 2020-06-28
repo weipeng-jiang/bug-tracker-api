@@ -7,6 +7,7 @@ const status = require("./status");
 const userIssues = require("./userIssues");
 const userProjects = require("./userProjects");
 const users = require("./users");
+const types = require("./types");
 
 comments;
 issues;
@@ -17,3 +18,4 @@ status;
 userIssues;
 userProjects;
 users;
+types;

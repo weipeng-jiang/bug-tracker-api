@@ -51,7 +51,7 @@ module.exports = describe("Testing the userIssues endpoints", () => {
 
   it("Should return 200 and all userIssues with specified issue ID", async (done) => {
     const response = await request(app)
-      .get("/api/userIssues/issue/1")
+      .get("/api/userIssues/issue/39")
       .set("Authorization", `bearer ${token}`);
     expect(response.status).toBe(200);
     expect(response.body).not.toBe(null);
@@ -82,7 +82,7 @@ module.exports = describe("Testing the userIssues endpoints", () => {
 
   it("Should return 200 and one userIssue", async (done) => {
     const response = await request(app)
-      .get("/api/userIssues/5/1")
+      .get("/api/userIssues/5/39")
       .set("Authorization", `bearer ${token}`);
     expect(response.status).toBe(200);
     expect(response.body).not.toBe(null);
